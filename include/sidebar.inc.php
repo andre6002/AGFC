@@ -22,24 +22,24 @@ $pages = [
         'name' => 'Localidade',
         'active' => false,
     ],
-    'clube' => [
-        'icon' => 'fa-solid fa-users fa-2x',
-        'url' => $arrConfig['url_admin'] . '/clube',
-        'name' => 'Clubes',
+    // 'clube' => [
+    //     'icon' => 'fa-solid fa-users fa-2x',
+    //     'url' => $arrConfig['url_admin'] . '/clube',
+    //     'name' => 'Clubes',
+    //     'active' => false,
+    // ],
+    'lugar_anual' => [
+        'icon' => 'fa-solid fa-calendar-days fa-2x',
+        'url' => $arrConfig['url_admin'] . '/lugar_anual',
+        'name' => 'Lugares Anuais',
         'active' => false,
     ],
-    'liga' => [
-        'icon' => 'fa-solid fa-trophy fa-2x',
-        'url' => $arrConfig['url_admin'] . '/liga',
-        'name' => 'Ligas',
+    'bancadas' => [
+        'icon' => 'fa-solid fa-futbol fa-2x',
+        'url' => $arrConfig['url_admin'] . '/bancadas',
+        'name' => 'Bancadas',
         'active' => false,
     ],
-    'personalizacaopredefinida' => [
-        'icon' => 'fa-solid fa-tshirt fa-2x',
-        'url' => $arrConfig['url_admin'] . '/personalizacaopredefinida',
-        'name' => 'Equipamentos Predef.',
-        'active' => false,
-    ],  
     'badge' => [
         'icon' => 'fa-solid fa-futbol',
         'url' => $arrConfig['url_admin'] . '/badge',

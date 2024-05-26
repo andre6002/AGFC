@@ -3,14 +3,13 @@ include '../../include/config.inc.php';
 include $arrConfig['dir_site'] . '/include/auth.inc.php';
 include 'dados.inc.php';
 
-
 ?>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
 <link rel="icon" type="image/png" href="../../img/logo.png">
 <title>
-  Admin
+  Inserir socios
 </title>
 <!--     Fonts and icons     -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -28,13 +27,6 @@ include 'dados.inc.php';
 <body class="bg-gray-100">
 
   <div class="container">
-    <?php
-    if (isset ($_SESSION['mensagem_erro'])) {
-      echo "<alert class='alert alert-danger' >" . $_SESSION['mensagem_erro'] . "</alert>";
-      // Não se esqueça de limpar a mensagem após exibição
-      unset($_SESSION['mensagem_erro']);
-    }
-    ?>
     <div class="row">
       <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto"
         style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
@@ -48,7 +40,7 @@ include 'dados.inc.php';
             style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; display: flex; justify-content: center; align-items: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
             <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px; z-index: 1000;">
               <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
-            </a> <a href="../<?php echo $modulo; ?>" style="position: absolute; top: 15px; right: 20px;">
+            </a> <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px;">
               <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
             </a>
             <form action="trata_inserir.php" method="post" enctype='multipart/form-data'
@@ -56,13 +48,12 @@ include 'dados.inc.php';
               <table width="70%">
                 <?php
                 foreach ($arrCampos as $kCampos => $vCampos) {
-                  if (isset ($vCampos['inserir'])) {
+                  if (isset($vCampos['inserir'])) {
                     if ($vCampos['inserir']) {
                       mostraCamposInserir($kCampos, $vCampos);
                     }
                   }
                 }
-
                 ?>
                 <tr>
                   <td width="100"></td>
@@ -80,9 +71,7 @@ include 'dados.inc.php';
 </body>
 
 
-
 <?php
-
 
 
 // funções para tratar os campos
@@ -93,28 +82,44 @@ function mostraCamposInserir($campo, $arrInfo)
 
   switch ($arrInfo['tipo']) {
     case 'text':
-      echo "<td><div class='mb-3'><input class='form-control' type='text' name='$campo'></div></td>";
+      echo "<td><div class='py-2'><input class='form-control' type='text' name='$campo'></div></td>";
       break;
 
     case 'number':
-      echo "<td><div class='mb-3'><input class='form-control' type='number' name='$campo'></div></td>";
+      echo "<td><div class='py-2'><input class='form-control' type='number' name='$campo'></div></td>";
       break;
 
+    case 'file':
+      echo "<td style='display: flex; align-items: center;'>
+      <div class='py-2'><input type='file' class='form-control' name='$campo'></div></td>";
+      break;
+
+    case 'float':
+      echo "<td><div class='py-2'><input class='form-control' type='float' name='$campo'></div></td>";
+      break;
+
+    case 'date':
+      echo "<td><div class='py-2'><input class='form-control' type='date' name='$campo'></div></td>";
+      break;
+
+    case 'tinyint':
+      echo "<td><div class='py-2'><input class='form-control' type='tinyint' name='$campo'></div></td>";
+      break;
     case 'password':
       echo "<td><input type='password' class='form-control' name='$campo'></td>";
       break;
 
     case 'textarea':
-      echo "<td><div class='mb-3'><textarea class='form-control' name='$campo'></textarea></div></td>";
+      echo "<td><div class='py-2'><textarea class='form-control' name='$campo'></textarea></div></td>";
       break;
 
     case 'radio':
       echo "<td>";
       // carregar de OPÇÕES pré-definidas
-      if (isset ($arrInfo['opcoes'])) {
+      if (isset($arrInfo['opcoes'])) {
         foreach ($arrInfo['opcoes'] as $k => $v) {
           $checked = '';
-          if (isset ($arrInfo['default'])) {
+          if (isset($arrInfo['default'])) {
             if ($arrInfo['default'] == $k) {
               $checked = 'checked="checked"';
             }
@@ -122,9 +127,9 @@ function mostraCamposInserir($campo, $arrInfo)
           echo "<input type='radio' name='$campo' value='$k' $checked>$v";
         }
         // carregar de uma tabela da BD  
-      } elseif (isset ($arrInfo['carrega_opcoes'])) {
+      } elseif (isset($arrInfo['carrega_opcoes'])) {
         $where = '';
-        if (isset ($arrInfo['carrega_opcoes']['ativo'])) {
+        if (isset($arrInfo['carrega_opcoes']['ativo'])) {
           $ativo = $arrInfo['carrega_opcoes']['ativo'];
           $where = "WHERE $ativo = '1'";
         }
@@ -133,7 +138,7 @@ function mostraCamposInserir($campo, $arrInfo)
         $arrResultados = my_query($query);
         foreach ($arrResultados as $k => $v) {
           $checked = '';
-          if (isset ($arrInfo['default'])) {
+          if (isset($arrInfo['default'])) {
             if ($arrInfo['default'] == $v[$arrInfo['carrega_opcoes']['chave']]) {
               $checked = 'checked="checked"';
             }
@@ -148,44 +153,59 @@ function mostraCamposInserir($campo, $arrInfo)
 
     case 'select':
       echo "<td>";
-      echo "<div class='mb-3'>";
+      echo "<div class='py-2'>";
       echo "<select class='form-select ' name='$campo'>";
-      // Assumindo que este 'select' é para escolher socios
-      if ($campo == 'id' && isset ($arrInfo['carrega_opcoes'])) {
+      // carregar de OPÇÕES pré-definidas
+      if (isset($arrInfo['opcoes'])) {
+        foreach ($arrInfo['opcoes'] as $k => $v) {
+          $selected = '';
+          if (isset($arrInfo['default'])) {
+            if ($arrInfo['default'] == $k) {
+              $selected = 'selected="selected"';
+            }
+          }
+          echo "<option value='$k' $selected>$v</option>";
+        }
+        // carregar de uma tabela da BD
+      } elseif (isset($arrInfo['carrega_opcoes'])) {
         $where = '';
-        if (isset ($arrInfo['carrega_opcoes']['ativo'])) {
+        if (isset($arrInfo['carrega_opcoes']['ativo'])) {
           $ativo = $arrInfo['carrega_opcoes']['ativo'];
-          $where = "WHERE p.$ativo = '1'";
+          $where = "WHERE $ativo = '1'";
         }
         $tabela = $arrInfo['carrega_opcoes']['tabela'];
-        // Mudar a query para incluir um JOIN com a tabela clube
-        $query = "SELECT p.id, p.nome as socio_nome, c.nome as clube_nome, p.epoca AS epoca FROM $tabela p
-                              INNER JOIN clube c ON p.id_clube = c.id $where";
+        $query = "SELECT * FROM $tabela " . "$where";
         $arrResultados = my_query($query);
-        if (isset ($arrInfo['carrega_opcoes']['null'])) {
-          $null_legenda = isset ($arrInfo['carrega_opcoes']['null_legenda']) ? $arrInfo['carrega_opcoes']['null_legenda'] : 'Seleccione uma opção';
-          $null_valor = isset ($arrInfo['carrega_opcoes']['null_valor']) ? $arrInfo['carrega_opcoes']['null_valor'] : '';
+        if (isset($arrInfo['carrega_opcoes']['null'])) {
+          $null_legenda = isset($arrInfo['carrega_opcoes']['null_legenda']) ? $arrInfo['carrega_opcoes']['null_legenda'] : 'Seleccione uma opção';
+          $null_valor = isset($arrInfo['carrega_opcoes']['null_valor']) ? $arrInfo['carrega_opcoes']['null_valor'] : '';
           echo "<option value='$null_valor'>$null_legenda</option>";
         }
-        foreach ($arrResultados as $linha) {
-          $id = $linha['id'];
-          $legenda = $linha['clube_nome'] . ' - ' . $linha['socio_nome'] . ' ' . $linha['epoca']; // Combinar nome do clube e nome do socio
-          $selected = (isset ($arrInfo['default']) && $arrInfo['default'] == $id) ? 'selected="selected"' : '';
+        foreach ($arrResultados as $k => $v) {
+          $selected = '';
+          if (isset($arrInfo['default'])) {
+            if ($arrInfo['default'] == $v[$arrInfo['carrega_opcoes']['chave']]) {
+              $selected = 'selected="selected"';
+            }
+          }
+          $id = $v[$arrInfo['carrega_opcoes']['chave']];
+          $legenda = $v[$arrInfo['carrega_opcoes']['legenda']];
           echo "<option value='$id' $selected>$legenda</option>";
         }
       }
-
       echo "</select>";
+      echo "</div>";
       echo "</td>";
       break;
+
     case 'checkbox':
       $ativo = '';
-      if (isset ($arrInfo['default'])) {
+      if (isset($arrInfo['default'])) {
         if ($arrInfo['default']) {
           $ativo = 'checked="checked"';
         }
       }
-      echo "<td><input type='checkbox' name='$campo' $ativo></td>";
+      echo "<td><div class='form-check form-check-info text-left'><input class='form-check-input' type='checkbox' name='$campo' $ativo></div></td>";
       break;
   }
 

@@ -123,7 +123,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
               </h6>
             </div>
             <p class="d-inline-block" style="margin-left: 20px">
-              <a href="inserir.php" class="btn btn-primary">Registar socio</a>
+              <a href="inserir.php" class="btn btn-primary">Registar sócio</a>
             </p>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -134,7 +134,6 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                       foreach ($arrCampos as $kCampos => $vCampos) {
                         if (isset($vCampos['listagem']) && $vCampos['listagem']) {
                           if ($kCampos == 'ativo') {
-                            echo "<th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>Preço Atual</th>";
                             echo "<th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>$vCampos[legenda]</th>";
                           } else {
                             echo "<th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>$vCampos[legenda]</th>";
@@ -157,17 +156,11 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                     foreach ($arrResultados as $v) {
                       echo "<tr>";
 
-                      $precoOriginal = $v['preco'];
-                      $desconto = $v['desconto'];
-                      $precoComDesconto = $precoOriginal - ($precoOriginal * ($desconto / 100));
-                      $precoComDescontoFormatado = number_format($precoComDesconto, 2) . '€';
-
                       foreach ($arrCampos as $kCampos => $vCampos) {
                         if (isset($vCampos['listagem']) && $vCampos['listagem']) {
                           $valorCampo = $v[$kCampos];
 
                           if ($kCampos == 'ativo') {
-                            echo "<td height='80px'>{$precoComDescontoFormatado}</td>";
                             $valorCampo = $v[$kCampos] == 1
                               ? "<i class='fa fa-check-circle text-success'></i>"
                               : "<i class='fa fa-times-circle text-danger'></i>";
