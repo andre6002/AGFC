@@ -51,9 +51,10 @@ $arrCampos = array(
             'null_valor' => 0,
             'null_valor_legenda' => '---',
             'consulta_customizada' => 'SELECT socios.codSocio, socios.nomeSocio 
-                                        FROM socios 
-                                        LEFT JOIN lugar_anual ON socios.codSocio = lugar_anual.codSocio1 
-                                        WHERE lugar_anual.codSocio1 IS NULL AND lugar_anual.codSocio2 IS NULL'
+            FROM socios 
+            LEFT JOIN lugar_anual la1 ON socios.codSocio = la1.codSocio1
+            LEFT JOIN lugar_anual la2 ON socios.codSocio = la2.codSocio2
+            WHERE la1.codSocio1 IS NULL AND la2.codSocio2 IS NULL'
         )
     )
 );

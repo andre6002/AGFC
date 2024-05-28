@@ -8,12 +8,38 @@ $result_total = my_query($sql_total);
 $total_socios = $result_total[0]['total_socios'];
 
 // Obter número de sócios inscritos nas últimas 24 horas
-$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataInscricao >= NOW() - INTERVAL 1 DAY";
+$today = date('Y-m-d');
+$yesterday = date('Y-m-d', strtotime('-1 day', strtotime($today)));
+$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataInscricao BETWEEN '$yesterday 00:00:00' AND '$today 23:59:59'";
+$result_recent = my_query($sql_recent);
 $result_recent = my_query($sql_recent);
 $recent_socios = $result_recent[0]['recent_socios'];
+
+// Obter quotas
+$sql_quotas = "SELECT tipo, idadeMin, idadeMax, cartao, quota, inscricao FROM quotas";
+$result_quotas = my_query($sql_quotas);
+
+// Obter bancadas
+$sql_bancadas = "SELECT * FROM bancadas";
+$result_bancadas = my_query($sql_bancadas);
+
+$bancadas_agrupadas = [];
+foreach ($result_bancadas as $bancada) {
+  $nome_parts = explode(' ', $bancada['nomeBancada']);
+  $primeira_parte = $nome_parts[0];
+  if (!isset($bancadas_agrupadas[$primeira_parte])) {
+    $bancadas_agrupadas[$primeira_parte] = [
+      'nomes_completos' => [],
+      'preco' => $bancada['precoBancada']
+    ];
+  }
+  if (isset($nome_parts[1])) {
+    $bancadas_agrupadas[$primeira_parte]['nomes_completos'][] = $nome_parts[1];
+  }
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
   <meta charset="utf-8" />
@@ -29,7 +55,8 @@ $recent_socios = $result_recent[0]['recent_socios'];
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css"
+    rel="stylesheet">
   <script src="https://kit.fontawesome.com/4454d5d378.js" crossorigin="anonymous"></script>
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
@@ -39,9 +66,11 @@ $recent_socios = $result_recent[0]['recent_socios'];
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
+    id="sidenav-main">
     <div class="sidenav-header mb-3">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+        aria-hidden="true" id="iconSidenav"></i>
       <img src="../img/logo.png" onclick="window.location.href=''" class="navbar-brand-img" alt="main_logo">
     </div>
     <hr class="horizontal dark mt-0 mb-2">
@@ -61,7 +90,8 @@ $recent_socios = $result_recent[0]['recent_socios'];
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+      navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -92,7 +122,8 @@ $recent_socios = $result_recent[0]['recent_socios'];
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center" style="padding-right: 8px !important; padding-left: 8px !important;">
+            <li class="nav-item px-3 d-flex align-items-center"
+              style="padding-right: 8px !important; padding-left: 8px !important;">
               <a href="../index.php" class="nav-link text-body p-0">
                 <i class="fa fa-right-from-bracket fixed-plugin-button-nav cursor-pointer"></i>
               </a>
@@ -102,46 +133,185 @@ $recent_socios = $result_recent[0]['recent_socios'];
       </div>
     </nav>
     <!-- End Navbar -->
-    <div class="container-fluid py-4">
-      <div class="row mt-4">
-        <div class="col-lg-5 mb-lg-0 mb-4">
-          <div class="card bg-gradient-dark move-on-hover">
-            <div class="card-body">
-              <div class="d-flex">
-                <h2 class="mb-0 text-white">Total de Sócios</h2>
-                <div class="ms-auto">
-                  <h1 class="text-white text-end mb-0 mt-n2"><?php echo $total_socios; ?></h1>
-                  <p class="text-sm mb-0 text-white">sócios</p>
-                </div>
+    <div class="row mt-4">
+      <div class="col-lg-5 mb-lg-0 mb-4">
+        <div class="card bg-gradient-dark move-on-hover">
+          <div class="card-body">
+            <div class="d-flex">
+              <h2 class="mb-0 text-white">Total de Sócios</h2>
+              <div class="ms-auto">
+                <h1 class="text-white text-end mb-0 mt-n2"><?php echo $total_socios; ?></h1>
+                <p class="text-sm mb-0 text-white">sócios</p>
               </div>
-              <p class="mb-0 text-white">Meeting</p>
             </div>
-            <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
-              <i class="fas fa-chevron-down text-white"></i>
-            </a>
           </div>
+          <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1" data-bs-toggle="tooltip"
+            data-bs-placement="top" title="Show More">
+            <i class="fas fa-chevron-down text-white"></i>
+          </a>
         </div>
+      </div>
 
-        <div class="col-lg-5 mb-lg-0 mb-4">
-          <div class="card bg-gradient-dark move-on-hover">
-            <div class="card-body">
-              <div class="d-flex">
-                <h2 class="mb-0 text-white">Sócios Inscritos nas Últimas 24h</h2>
-                <div class="ms-auto">
-                  <h1 class="text-white text-end mb-0 mt-n2"> <?php echo $recent_socios; ?>
-                  </h1>
-                  <p class="text-sm mb-0 text-white">sócios</p>
-                </div>
+      <div class="col-lg-5 mb-lg-0 mb-4">
+        <div class="card bg-gradient-dark move-on-hover">
+          <div class="card-body">
+            <div class="d-flex">
+              <h2 class="mb-0 text-white">Sócios Inscritos nas Últimas 24h</h2>
+              <div class="ms-auto">
+                <h1 class="text-white text-end mb-0 mt-n2"> <?php echo $recent_socios; ?>
+                </h1>
+                <p class="text-sm mb-0 text-white">sócios</p>
               </div>
             </div>
-            <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
-              <i class="fas fa-chevron-down text-white"></i>
-            </a>
+          </div>
+          <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1" data-bs-toggle="tooltip"
+            data-bs-placement="top" title="Show More">
+            <i class="fas fa-chevron-down text-white"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-lg-10 mb-4">
+        <div class="card">
+          <div class="card-header pb-0 px-3 pt-3">
+            <h4 class="card-title mb-0">Quotas</h4>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="tabela-quotas">
+                <thead>
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Idade Mínima</th>
+                    <th>Idade Máxima</th>
+                    <th>Cartão</th>
+                    <th>Quota</th>
+                    <th>Inscrição</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  if (!empty($result_quotas)) {
+                    foreach ($result_quotas as $quota) {
+                      $class = '';
+                      if (stripos($quota['tipo'], 'Superior') !== false) {
+                        $class = 'tipo-superior';
+                      } elseif (stripos($quota['tipo'], 'Arquibancada') !== false) {
+                        $class = 'tipo-arquibancada';
+                      } elseif (stripos($quota['tipo'], 'Lateral') !== false) {
+                        $class = 'tipo-lateral';
+                      } elseif (stripos($quota['tipo'], 'Central') !== false) {
+                        $class = 'tipo-central';
+                      }
+                      echo "<tr class='{$class}'>";
+                      echo "<td class='align-middle text-center'><span class='text-s'>{$quota['tipo']}</span></td>";
+                      echo "<td class='align-middle text-center'><span class='text-s'>{$quota['idadeMin']}</span></td>";
+                      echo "<td class='align-middle text-center'><span class='text-s'>{$quota['idadeMax']}</span></td>";
+                      echo "<td class='align-middle text-center'><span class='text-s'>{$quota['cartao']}€</span></td>";
+                      echo "<td class='align-middle text-center'><span class='text-s'>{$quota['quota']}€</span></td>";
+                      echo "<td class='align-middle text-center'><span class='text-s'>{$quota['inscricao']}€</span></td>";
+                      echo "</tr>";
+                    }
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="row mt-4" style="height: 500px">
+      <div class="col-lg-10 mb-lg-0 mb-4">
+        <div class="card">
+          <div class="card-header pb-2 px-3 pt-3">
+            <h4 class="card-title mb-0">Bancadas - Lugar Anual</h4>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary font-weight-bolder opacity-7">Nome da Bancada</th>
+                    <th class="text-uppercase text-secondary font-weight-bolder opacity-7">Preço da Bancada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  if (!empty($bancadas_agrupadas)) {
+                    foreach ($bancadas_agrupadas as $nomeBancada => $bancada) {
+                      $nomes_completos = implode(' / ', $bancada['nomes_completos']);
+                      echo "<tr><td>{$nomeBancada} {$nomes_completos}</td><td>{$bancada['preco']}€</td></tr>";
+                    }
+                  } else {
+                    echo "<tr><td colspan='2' class='text-center'>Nenhuma bancada encontrada</td></tr>";
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   </main>
 </body>
 
 </html>
+
+<style>
+  .tabela-quotas {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    text-align: left;
+  }
+
+  .tabela-quotas th,
+  .tabela-quotas td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+
+  .tabela-quotas th {
+    background-color: #2A72B5;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .tabela-quotas td {
+    border-bottom: 1px solid #dddddd;
+    color: #000000;
+  }
+
+  .tabela-quotas tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  .tabela-quotas .tipo-superior {
+    background-color: #d4a017;
+    color: #ffffff;
+  }
+
+  .tabela-quotas .tipo-arquibancada {
+    background-color: #f9c2d7;
+    color: #ffffff;
+  }
+
+  .tabela-quotas .tipo-lateral {
+    background-color: #6da8e5;
+    color: #ffffff;
+  }
+
+  .tabela-quotas .tipo-central {
+    background-color: #83e0c3;
+    color: #ffffff;
+  }
+</style>

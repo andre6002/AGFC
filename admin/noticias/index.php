@@ -5,7 +5,7 @@ include 'dados.inc.php';
 
 $arrCamposChave = array();
 foreach ($arrCampos as $kCampos => $vCampos) {
-  if (isset ($vCampos['chave']) && $vCampos['chave']) {
+  if (isset($vCampos['chave']) && $vCampos['chave']) {
     $arrCamposChave[] = array('nome' => $kCampos, 'valor' => '{valor_' . $kCampos . '}');
   }
 }
@@ -23,7 +23,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../../img/logo.png">
+<link rel="icon" type="image/png" href="../../img/logo.png">
 <title>
   Admin
 </title>
@@ -60,7 +60,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
         <?php
         include '../../include/sidebar2.inc.php';
         ?>
-        
+
       </ul>
     </div>
 
@@ -78,8 +78,9 @@ $strCamposChave = substr($strCamposChave, 0, -1);
             </li>
           </ol>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" style="justify-content: flex-end" id="navbar">
-          
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" style="justify-content: flex-end"
+          id="navbar">
+
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
@@ -107,7 +108,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                 <i class="fa fa-right-from-bracket fixed-plugin-button-nav cursor-pointer"></i>
               </a>
             </li>
-            
+
           </ul>
         </div>
       </div>
@@ -123,7 +124,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
               </h6>
             </div>
             <p class="d-inline-block" style="margin-left: 20px">
-              <a href="inserir.php" class="btn btn-primary">Adicionar Hero</a>
+              <a href="inserir.php" class="btn btn-primary">Nova Notícia</a>
             </p>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -132,7 +133,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                     <tr>
                       <?php
                       foreach ($arrCampos as $kCampos => $vCampos) {
-                        if (isset ($vCampos['listagem']) && $vCampos['listagem']) {
+                        if (isset($vCampos['listagem']) && $vCampos['listagem']) {
                           echo "<th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>$vCampos[legenda]</th>";
                         }
                       }
@@ -147,7 +148,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                     foreach ($arrResultados as $v) {
                       echo "<tr>";
                       foreach ($arrCampos as $kCampos => $vCampos) {
-                        if (isset ($vCampos['listagem']) && $vCampos['listagem']) {
+                        if (isset($vCampos['listagem']) && $vCampos['listagem']) {
                           $valorCampo = $v[$kCampos];
 
                           if ($kCampos == 'ativo') {
@@ -156,7 +157,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                               : "<i class='fa fa-times-circle text-danger'></i>";
                           }
 
-                          if (isset ($vCampos['carrega_opcoes'])) {
+                          if (isset($vCampos['carrega_opcoes'])) {
                             $tabela = $vCampos['carrega_opcoes']['tabela'];
                             $chave = $vCampos['carrega_opcoes']['chave'];
                             $campoLegenda = $vCampos['carrega_opcoes']['legenda'];
@@ -167,9 +168,9 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                             }
                             $queryOpcoes = "SELECT $campoLegenda FROM $tabela WHERE $where";
                             $arrCarregaOpcoes = my_query($queryOpcoes);
-                            if (isset ($arrCarregaOpcoes[0][$campoLegenda])) {
+                            if (isset($arrCarregaOpcoes[0][$campoLegenda])) {
                               $valorCampo = $arrCarregaOpcoes[0][$campoLegenda];
-                            } else if (isset ($vCampos['carrega_opcoes']['null_valor_legenda'])) {
+                            } else if (isset($vCampos['carrega_opcoes']['null_valor_legenda'])) {
                               $valorCampo = $vCampos['carrega_opcoes']['null_valor_legenda'];
                             }
                           }
@@ -179,7 +180,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                           } else if ($vCampos['tipo'] === 'text' || $vCampos['tipo'] === 'textarea' || $vCampos['tipo'] === 'file') {
                             $valorCampo = "<div style='word-wrap: break-word; white-space: normal; max-width: 300px; min-height: 50px;'>$valorCampo</div>";
                           }
-                    
+
                           echo "<td class='align-middle'>$valorCampo</td>";
                         }
                       }
@@ -226,7 +227,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
       </div>
       <hr class="horizontal dark my-1">
       <div class="card-body pt-sm-3 pt-0">
-        
+
         <!-- Sidenav Type -->
         <div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
