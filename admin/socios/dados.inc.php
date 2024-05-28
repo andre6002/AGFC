@@ -4,13 +4,21 @@ $modulo = "socios";
 
 $arrCampos = array(
     'codSocio' => array(
-        'legenda' => 'Código do Sócio',
-        'tipo' => 'int',
+        'legenda' => 'Nº de Sócio',
+        'tipo' => 'number',
         'chave' => 1,
-        'listagem' => 0,
+        'listagem' => 1,
         'inserir' => 0,
-        'editar' => 0,
+        'editar' => 1,
         'largura' => 50
+    ),
+    'fotoSocio' => array(
+        'legenda' => 'Foto',
+        'tipo' => 'file',
+        'chave' => 0,
+        'listagem' => 1,
+        'inserir' => 1,
+        'editar' => 1
     ),
     'nomeSocio' => array(
         'legenda' => 'Nome do Sócio',
@@ -60,13 +68,13 @@ $arrCampos = array(
         'inserir' => 1,
         'editar' => 1
     ),
-    'fotoSocio' => array(
-        'legenda' => 'Foto',
-        'tipo' => 'file',
+    'dataInscricao' => array(
+        'legenda' => 'Data de Inscrição',
+        'tipo' => 'date',
         'chave' => 0,
-        'listagem' => 0,
-        'inserir' => 1,
-        'editar' => 1
+        'listagem' => 1,
+        'inserir' => 0,
+        'editar' => 0
     ),
     'sexo' => array(
         'legenda' => 'Sexo',
@@ -85,8 +93,8 @@ $arrCampos = array(
         'tipo' => 'select',
         'carrega_opcoes' => array(
             'tabela' => 'localidades',
-            'chave' => 'id',
-            'legenda' => 'nome',
+            'chave' => 'codLocal',
+            'legenda' => 'nomeLocalidade',
             'ativo' => null,
             'null' => '1',
             'null_legenda' => 'Selecione um local!',
@@ -97,5 +105,23 @@ $arrCampos = array(
         'listagem' => 0,
         'inserir' => 1,
         'editar' => 1
+    ),
+    'codQuota' => array(
+        'legenda' => 'Quota',
+        'tipo' => 'select',
+        'carrega_opcoes' => array(
+            'tabela' => 'quotas',
+            'chave' => 'codQuota',
+            'legenda' => 'tipo',
+            'ativo' => null,
+            'null' => '1',
+            'null_legenda' => 'Selecione uma quota!',
+            'null_valor' => 0,
+            'null_valor_legenda' => '---'
+        ),
+        'chave' => 0,
+        'listagem' => 1,
+        'inserir' => 0,
+        'editar' => 0
     )
 );

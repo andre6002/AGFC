@@ -40,11 +40,9 @@ $strCamposChave = substr($strCamposChave, 0, -1);
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
-    id="sidenav-main">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header mb-3">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-        aria-hidden="true" id="iconSidenav"></i>
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <img src="../../img/logo.png" onclick="window.location.href=''" class="navbar-brand-img" alt="main_logo">
     </div>
     <hr class="horizontal dark mt-0 mb-2">
@@ -66,8 +64,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-      navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -77,8 +74,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
             </li>
           </ol>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" style="justify-content: flex-end"
-          id="navbar">
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" style="justify-content: flex-end" id="navbar">
 
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
@@ -101,8 +97,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center"
-              style="padding-right: 8px !important; padding-left: 8px !important;">
+            <li class="nav-item px-3 d-flex align-items-center" style="padding-right: 8px !important; padding-left: 8px !important;">
               <a href="../../index.php" class="nav-link text-body p-0">
                 <i class="fa fa-right-from-bracket fixed-plugin-button-nav cursor-pointer"></i>
               </a>
@@ -123,7 +118,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
               </h6>
             </div>
             <p class="d-inline-block" style="margin-left: 20px">
-              <a href="inserir.php" class="btn btn-primary">Registar sócio</a>
+              <a href="inserir.php" class="btn btn-primary">Partilhar Lugar</a>
             </p>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -133,14 +128,11 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                       <?php
                       foreach ($arrCampos as $kCampos => $vCampos) {
                         if (isset($vCampos['listagem']) && $vCampos['listagem']) {
-                          if ($kCampos == 'ativo') {
-                            echo "<th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>$vCampos[legenda]</th>";
-                          } else {
-                            echo "<th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>$vCampos[legenda]</th>";
-                          }
+                          echo "<th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>$vCampos[legenda]</th>";
                         }
                       }
                       ?>
+                      <th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>Lugar Anual</th>
                       <th class='text-uppercase text-secondary text-xxs font-weight-bolder opacity-7'>Ações</th>
                     </tr>
                   </thead>
@@ -150,60 +142,82 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                     $perPage = 15;
                     $offset = ($page - 1) * $perPage;
 
-                    $query = "SELECT * FROM $modulo LIMIT $perPage OFFSET $offset";
+                    $query = "
+            SELECT partilhas.*, 
+                   socio1.codSocio AS codSocio1_num, 
+                   socio1.nomeSocio AS nomeSocio1, 
+                   socio2.codSocio AS codSocio2_num, 
+                   socio2.nomeSocio AS nomeSocio2,
+                   lugar_anual.codBancada AS codBancada,
+                   lugar_anual.fila AS fila,
+                   lugar_anual.numeroDoLugar AS numeroDoLugar,
+                   bancadas.nomeBancada AS nomeBancada
+            FROM $modulo 
+            LEFT JOIN socios AS socio1 ON partilhas.codSocio1 = socio1.codSocio 
+            LEFT JOIN socios AS socio2 ON partilhas.codSocio2 = socio2.codSocio
+            LEFT JOIN lugar_anual ON partilhas.codSocio1 = lugar_anual.codSocio1
+            LEFT JOIN bancadas ON lugar_anual.codBancada = bancadas.codBancada
+            LIMIT $perPage OFFSET $offset";
                     $arrResultados = my_query($query);
 
-                    foreach($arrResultados as $v) {
+                    foreach ($arrResultados as $v) {
                       echo "<tr>";
-                      foreach($arrCampos as $kCampos => $vCampos) {
-                          if(isset($vCampos['listagem']) && $vCampos['listagem']) {
-                              // Inicialmente, considera-se o valor direto da coluna
-                              $valorCampo = $v[$kCampos];
-                              
-                              if ($kCampos == 'ativo') {
-                                $valorCampo = $v[$kCampos] == 1
-                                  ? "<i class='fa fa-check-circle text-success'></i>"
-                                  : "<i class='fa fa-times-circle text-danger'></i>";
-                              }
-                              
-                              if(isset($vCampos['carrega_opcoes'])) {
-                                $tabela = $vCampos['carrega_opcoes']['tabela'];
-                                $chave = $vCampos['carrega_opcoes']['chave'];
-                                $campoLegenda = $vCampos['carrega_opcoes']['legenda'];
-                                $ativo = $vCampos['carrega_opcoes']['ativo'];
-                                $where = "$chave = '".$v[$kCampos]."'";
-                                if($ativo !== null) {
-                                    $where .= " AND $ativo = '1'";
-                                }
-                                $queryOpcoes = "SELECT $campoLegenda FROM $tabela WHERE $where";
-                                $arrCarregaOpcoes = my_query($queryOpcoes);
-                                if(isset($arrCarregaOpcoes[0][$campoLegenda])) {
-                                    $valorCampo = $arrCarregaOpcoes[0][$campoLegenda];
-                                } else if(isset($vCampos['carrega_opcoes']['null_valor_legenda'])) {
-                                    $valorCampo = $vCampos['carrega_opcoes']['null_valor_legenda'];
-                                }
-                            }
+                      foreach ($arrCampos as $kCampos => $vCampos) {
+                        if (isset($vCampos['listagem']) && $vCampos['listagem']) {
+                          $valorCampo = $v[$kCampos];
 
-                              if ($vCampos['tipo'] == 'file') {
-                                $valorCampo = "<img src='$arrConfig[url_site]/uploads/$v[$kCampos]' width='50'>";
-                              }
-              
-                              echo "<td>$valorCampo</td>";
+                          if ($kCampos == 'ativo') {
+                            $valorCampo = $v[$kCampos] == 1
+                              ? "<i class='fa fa-check-circle text-success'></i>"
+                              : "<i class='fa fa-times-circle text-danger'></i>";
                           }
+
+
+                          if (isset($vCampos['carrega_opcoes'])) {
+                            $tabela = $vCampos['carrega_opcoes']['tabela'];
+                            $chave = $vCampos['carrega_opcoes']['chave'];
+                            $campoLegenda = $vCampos['carrega_opcoes']['legenda'];
+                            $ativo = $vCampos['carrega_opcoes']['ativo'];
+                            $where = "$chave = '" . $v[$kCampos] . "'";
+                            if ($ativo !== null) {
+                              $where .= " AND $ativo = '1'";
+                            }
+                            $queryOpcoes = "SELECT $campoLegenda FROM $tabela WHERE $where";
+                            $arrCarregaOpcoes = my_query($queryOpcoes);
+                            if (isset($arrCarregaOpcoes[0][$campoLegenda])) {
+                              $valorCampo = $arrCarregaOpcoes[0][$campoLegenda];
+                            } else if (isset($vCampos['carrega_opcoes']['null_valor_legenda'])) {
+                              $valorCampo = $vCampos['carrega_opcoes']['null_valor_legenda'];
+                            }
+                          }
+
+                          if ($vCampos['tipo'] == 'file') {
+                            $valorCampo = "<img src='$arrConfig[url_site]/uploads/$v[$kCampos]' width='50'>";
+                          }
+                          if ($kCampos == 'codSocio1') {
+                            $valorCampo = $v['codSocio1_num'] . ' - ' . $v['nomeSocio1'];
+                          }
+
+                          if ($kCampos == 'codSocio2') {
+                            $valorCampo = $v['codSocio2_num'] . ' - ' . $v['nomeSocio2'];
+                          }
+
+                          echo "<td>$valorCampo</td>";
+                        }
                       }
+                      // Adiciona a coluna do Lugar Anual
+                      echo "<td>" . $v['nomeBancada'] . " (Fila: " . $v['fila'] . ", Lugar: " . $v['numeroDoLugar'] . ")</td>";
+
                       $strCamposChave_aux = $strCamposChave;
                       foreach ($arrCamposChave as $vChave) {
                         $strCamposChave_aux = str_replace('{valor_' . $vChave['nome'] . '}', $v[$vChave['nome']], $strCamposChave_aux);
                       }
 
                       echo "<td style='width: 10%;' class='align-middle text-center'>
-                                            <a href='editar.php?$strCamposChave_aux' class='btn btn-link text-secondary mb-0' style='margin-right: 5px;'>
-                                            <i class='fa fa-pencil text-xs'></i>
-                                            </a>
-                                            <a href='eliminar.php?$strCamposChave_aux' class='btn btn-link text-danger mb-0' style='margin-left: 5px;'>
-                                            <i class='fa fa-trash text-xs'></i>
-                                            </a>    
-                                            </td>";
+                  <a href='eliminar.php?$strCamposChave_aux' class='btn btn-link text-danger mb-0' style='margin-left: 5px;'>
+                    <i class='fa fa-trash text-xs'></i>
+                  </a>    
+                  </td>";
                     }
                     $countQuery = "SELECT COUNT(*) AS total FROM $modulo";
                     $totalRows = my_query($countQuery)[0]['total'];
@@ -223,7 +237,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                       <span class="sr-only">Anterior</span>
                     </a>
                   </li>
-                  <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                  <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
                     <li class="page-item <?php echo ($i === $page) ? 'active' : ''; ?>">
                       <a class="page-link" href="?page=<?php echo $i; ?>">
                         <?php echo $i; ?>
@@ -270,10 +284,8 @@ $strCamposChave = substr($strCamposChave, 0, -1);
           <p class="text-sm">Choose between 2 different sidenav types.</p>
         </div>
         <div class="d-flex">
-          <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent"
-            onclick="sidebarType(this)">Transparent</button>
-          <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white"
-            onclick="sidebarType(this)">White</button>
+          <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+          <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
         </div>
         <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
         <!-- Navbar Fixed -->

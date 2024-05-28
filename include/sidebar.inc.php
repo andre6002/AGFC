@@ -22,16 +22,16 @@ $pages = [
         'name' => 'Localidade',
         'active' => false,
     ],
-    // 'clube' => [
-    //     'icon' => 'fa-solid fa-users fa-2x',
-    //     'url' => $arrConfig['url_admin'] . '/clube',
-    //     'name' => 'Clubes',
-    //     'active' => false,
-    // ],
     'lugar_anual' => [
         'icon' => 'fa-solid fa-calendar-days fa-2x',
         'url' => $arrConfig['url_admin'] . '/lugar_anual',
         'name' => 'Lugares Anuais',
+        'active' => false,
+    ],
+    'quotas' => [
+        'icon' => 'fa-solid fa-euro-sign fa-2x',
+        'url' => $arrConfig['url_admin'] . '/quotas',
+        'name' => 'Quotas',
         'active' => false,
     ],
     'bancadas' => [
@@ -40,10 +40,16 @@ $pages = [
         'name' => 'Bancadas',
         'active' => false,
     ],
-    'badge' => [
-        'icon' => 'fa-solid fa-futbol',
-        'url' => $arrConfig['url_admin'] . '/badge',
-        'name' => 'Badges',
+    'partilhas' => [
+        'icon' => 'fa-solid fa-share fa-2x',
+        'url' => $arrConfig['url_admin'] . '/partilhas',
+        'name' => 'Partilha de Lugar Anual',
+        'active' => false,
+    ],
+    'trocas' => [
+        'icon' => 'fa-solid fa-right-left fa-2x',
+        'url' => $arrConfig['url_admin'] . '/trocas',
+        'name' => 'Troca de Lugar Anual',
         'active' => false,
     ],
     'noticias' => [
@@ -80,4 +86,3 @@ foreach ($pages as $pag => &$value) {
     renderNavItem($value);
 }
 echo '</ul>';
-?>

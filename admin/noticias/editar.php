@@ -145,7 +145,7 @@ function mostraCamposEditar($campo, $arrInfo, $valor)
       break;
 
     case 'number':
-      echo "<td><div class='mb-3'><input class='form-control' type='number' name='$campo' value='$valor'></div>s</td>";
+      echo "<td><div class='mb-3'><input class='form-control' type='number' name='$campo' value='$valor'></div></td>";
       break;
 
     case 'file':

@@ -6,41 +6,11 @@ include 'dados.inc.php';
 print_r($_POST);
 print_r($_FILES);
 
-// Adicionar a data de inscrição
-$dataInscricao = date("Y-m-d");
-
-// Função para calcular a idade
-function calcularIdade($dataNasc)
-{
-  $dob = new DateTime($dataNasc);
-  $now = new DateTime();
-  $age = $now->diff($dob);
-  return $age->y;
-}
-
-// Função para atribuir a quota com base na idade
-function atribuirQuota($idade)
-{
-  $sql = "SELECT codQuota FROM quotas WHERE idadeMin <= $idade AND idadeMax >= $idade";
-  $result = my_query($sql);
-  if (count($result) > 0) {
-    return $result[0]['codQuota'];
-  }
-  return null; // Retorna null se nenhuma quota for encontrada
-}
-
-// Calcular a idade do sócio
-$dataNasc = $_POST['dataNasc'];
-$idade = calcularIdade($dataNasc);
-
-// Atribuir a quota correta com base na idade
-$codQuota = atribuirQuota($idade);
-
 // -------------------------------------------
 // (1) Construir strings com as informações dos Campos
 // -------------------------------------------
-$strCampos = 'dataInscricao, codQuota, ';
-$strValores = "'$dataInscricao', '$codQuota', ";
+$strCampos = '';
+$strValores = '';
 foreach ($arrCampos as $kCampos => $vCampos) {
   if (isset($vCampos['inserir'])) {
     if ($vCampos['inserir']) {
@@ -59,9 +29,9 @@ foreach ($arrCampos as $kCampos => $vCampos) {
             $strValores .= "'$nome', ";
           }
         }
-      } else {
+      } else {  
         $strCampos .= $kCampos . ', ';
-        $strValores .= "'" . my_real_escape_string($_POST[$kCampos]) . "', ";
+        $strValores .= "'$_POST[$kCampos]', ";
       }
     }
   }
@@ -72,12 +42,12 @@ $strValores = substr($strValores, 0, strlen($strValores) - 2);
 // (1) fim
 // -------------------------------------------
 
+
 // Query
 $query = "INSERT INTO $modulo ($strCampos) VALUES ($strValores)";
 $result = my_query($query);
-if (!$arrConfig['production'] && !$result) {
+if (!$arrConfig['production'] && !$result)
   die("ERRO: " . $query);
-}
 
 header('Location: ' . $arrConfig['url_admin'] . '/' . $modulo . '/');
 exit;

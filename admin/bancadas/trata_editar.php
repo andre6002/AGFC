@@ -2,45 +2,25 @@
 include '../../include/config.inc.php';
 include $arrConfig['dir_site'] . '/include/auth.inc.php';
 include 'dados.inc.php';
-
+ 
 // Iniciar o buffer de saída
 ob_start();
-
-// Função para calcular a idade
-function calcularIdade($dataNasc)
-{
-  $dob = new DateTime($dataNasc);
-  $now = new DateTime();
-  $age = $now->diff($dob);
-  return $age->y;
-}
-
-// Função para atribuir a quota com base na idade
-function atribuirQuota($idade)
-{
-  $sql = "SELECT codQuota FROM quotas WHERE idadeMin <= $idade AND idadeMax >= $idade";
-  $result = my_query($sql);
-  if (count($result) > 0) {
-    return $result[0]['codQuota'];
-  }
-  return null; // Retorna null se nenhuma quota for encontrada
-}
-
+ 
 // (1) obter informações dos campos Chave
 $arrCamposChave = array();
 foreach ($arrCampos as $kCampos => $vCampos) {
   if (isset($vCampos['chave']) && $vCampos['chave']) {
-    $valor = $_POST[$kCampos] ?? '';
+    $valor = $_POST[$kCampos] ?? ''; 
     $arrCamposChave[] = array('nome' => $kCampos, 'valor' => $valor);
   }
 }
-
+ 
 $strCamposChave = '';
 foreach ($arrCamposChave as $k => $v) {
-  $strCamposChave .= "$v[nome] = '" . my_real_escape_string($v['valor']) . "' AND ";
+  $strCamposChave .= "$v[nome] = '$v[valor]' AND ";
 }
 $strCamposChave = substr($strCamposChave, 0, -5);
-
+ 
 // (2) Construir strings com as informações dos Campos
 $strCamposValores = '';
 foreach ($arrCampos as $kCampos => $vCampos) {
@@ -64,29 +44,20 @@ foreach ($arrCampos as $kCampos => $vCampos) {
     } else {
       $valorEscapado = my_real_escape_string($valor);
       $strCamposValores .= "$kCampos = '$valorEscapado', ";
-
-      // Verificar e atualizar a quota se a data de nascimento foi alterada
-      if ($kCampos == 'dataNasc') {
-        $idade = calcularIdade($valor);
-        $codQuota = atribuirQuota($idade);
-        if ($codQuota !== null) {
-          $strCamposValores .= "codQuota = '$codQuota', ";
-        }
-      }
     }
   }
 }
 $strCamposValores = substr($strCamposValores, 0, -2);
-
+ 
 // Query
 $query = "UPDATE $modulo SET $strCamposValores WHERE $strCamposChave";
 $result = my_query($query);
-
+ 
 if (isset($arrConfig['production']) && !$arrConfig['production'] && !$result) {
-  die("ERRO: " . $query);
+  die("ERRO: " . $query); 
 }
-
+ 
 ob_end_clean();
-
+ 
 header('Location: ' . $arrConfig['url_admin'] . '/' . $modulo . '/');
 exit;

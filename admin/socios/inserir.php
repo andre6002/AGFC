@@ -28,23 +28,20 @@ include 'dados.inc.php';
 
   <div class="container">
     <div class="row">
-      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto"
-        style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
+      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto" style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
         <div class="card card-plain mt-8" style="margin-top: 0px !important;">
           <div class="card-header pb-0 text-left bg-transparent">
             <h2 style="margin-left: 6rem;" class="font-weight-bolder text-info text-gradient">
               <?php echo $nome_modulo; ?>
             </h2>
           </div>
-          <div class="card-body"
-            style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; display: flex; justify-content: center; align-items: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
+          <div class="card-body" style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; display: flex; justify-content: center; align-items: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
             <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px; z-index: 1000;">
               <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
             </a> <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px;">
               <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
             </a>
-            <form action="trata_inserir.php" method="post" enctype='multipart/form-data'
-              style="width: 100%; display: flex; justify-content: center; align-items: center;">
+            <form action="trata_inserir.php" method="post" enctype='multipart/form-data' style="width: 100%; display: flex; justify-content: center; align-items: center;">
               <table width="70%">
                 <?php
                 foreach ($arrCampos as $kCampos => $vCampos) {
@@ -154,19 +151,41 @@ function mostraCamposInserir($campo, $arrInfo)
     case 'select':
       echo "<td>";
       echo "<div class='py-2'>";
-      echo "<select class='form-select ' name='$campo'>";
-      // carregar de OPÇÕES pré-definidas
-      if (isset($arrInfo['opcoes'])) {
+      echo "<select class='form-select' name='$campo'>";
+      if ($campo == 'codLocal' && isset($arrInfo['carrega_opcoes'])) {
+        $where = '';
+        if (isset($arrInfo['carrega_opcoes']['ativo']) && $arrInfo['carrega_opcoes']['ativo']) {
+          $ativo = $arrInfo['carrega_opcoes']['ativo'];
+          $where = "WHERE $ativo = '1'";
+        }
+        $tabela = $arrInfo['carrega_opcoes']['tabela'];
+        $chave = $arrInfo['carrega_opcoes']['chave'];
+        $legenda = $arrInfo['carrega_opcoes']['legenda'];
+        $query = "SELECT $chave, CONCAT($legenda, ' - ', codPostal) AS display_name FROM $tabela $where ORDER BY $legenda ASC";
+        $arrResultados = my_query($query);
+        if (isset($arrInfo['carrega_opcoes']['null']) && $arrInfo['carrega_opcoes']['null']) {
+          $null_legenda = $arrInfo['carrega_opcoes']['null_legenda'];
+          $null_valor = $arrInfo['carrega_opcoes']['null_valor'];
+          echo "<option value='$null_valor'>$null_legenda</option>";
+        }
+        foreach ($arrResultados as $linha) {
+          $id = $linha[$chave];
+          $displayName = $linha['display_name'];
+          $selected = (isset($arrInfo['default']) && $arrInfo['default'] == $id) ? 'selected="selected"' : '';
+          echo "<option value='$id' $selected>$displayName</option>";
+        }
+      } elseif ($campo == 'sexo') {
+        echo "<option value=''>Selecione...</option>";
+        echo "<option value='M'>Masculino</option>";
+        echo "<option value='F'>Feminino</option>";
+      } elseif (isset($arrInfo['opcoes'])) {
         foreach ($arrInfo['opcoes'] as $k => $v) {
           $selected = '';
-          if (isset($arrInfo['default'])) {
-            if ($arrInfo['default'] == $k) {
-              $selected = 'selected="selected"';
-            }
+          if (isset($arrInfo['default']) && $arrInfo['default'] == $k) {
+            $selected = 'selected="selected"';
           }
           echo "<option value='$k' $selected>$v</option>";
         }
-        // carregar de uma tabela da BD
       } elseif (isset($arrInfo['carrega_opcoes'])) {
         $where = '';
         if (isset($arrInfo['carrega_opcoes']['ativo'])) {
@@ -174,11 +193,11 @@ function mostraCamposInserir($campo, $arrInfo)
           $where = "WHERE $ativo = '1'";
         }
         $tabela = $arrInfo['carrega_opcoes']['tabela'];
-        $query = "SELECT * FROM $tabela " . "$where";
+        $query = "SELECT * FROM $tabela $where";
         $arrResultados = my_query($query);
-        if (isset($arrInfo['carrega_opcoes']['null'])) {
-          $null_legenda = isset($arrInfo['carrega_opcoes']['null_legenda']) ? $arrInfo['carrega_opcoes']['null_legenda'] : 'Seleccione uma opção';
-          $null_valor = isset($arrInfo['carrega_opcoes']['null_valor']) ? $arrInfo['carrega_opcoes']['null_valor'] : '';
+        if (isset($arrInfo['carrega_opcoes']['null']) && $arrInfo['carrega_opcoes']['null']) {
+          $null_legenda = $arrInfo['carrega_opcoes']['null_legenda'];
+          $null_valor = $arrInfo['carrega_opcoes']['null_valor'];
           echo "<option value='$null_valor'>$null_legenda</option>";
         }
         foreach ($arrResultados as $k => $v) {
@@ -197,6 +216,7 @@ function mostraCamposInserir($campo, $arrInfo)
       echo "</div>";
       echo "</td>";
       break;
+
 
     case 'checkbox':
       $ativo = '';

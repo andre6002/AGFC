@@ -28,7 +28,7 @@ include 'dados.inc.php';
 // -------------------------------------------
 $arrCamposChave = array();
 foreach ($arrCampos as $kCampos => $vCampos) {
-  if (isset ($vCampos['chave'])) {
+  if (isset($vCampos['chave'])) {
     if ($vCampos['chave']) {
       $arrCamposChave[] = array('nome' => $kCampos, 'valor' => $_GET[$kCampos]);
     }
@@ -54,21 +54,18 @@ $arrResultados = my_query($query);
 <body class="bg-gray-100">
   <div class="container">
     <div class="row">
-      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto"
-        style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
+      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto" style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
         <div class="card card-plain mt-8" style="margin-top: 0px !important;">
           <div class="card-header pb-0 text-left bg-transparent">
             <h2 style="margin-left: 6rem;" class="font-weight-bolder text-info text-gradient">
               <?php echo $nome_modulo; ?>
             </h2>
           </div>
-          <div class="card-body"
-            style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; display: flex; justify-content: center; align-items: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
-            <form action="trata_editar.php" method="post" enctype='multipart/form-data'
-              style="width: 100%; display: flex; justify-content: center !important; align-items: center !important;">
-              <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px;">
-                <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
-              </a>
+          <div class="card-body" style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; display: flex; justify-content: center; align-items: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
+            <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px; z-index: 1000;">
+              <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
+            </a>
+            <form action="trata_editar.php" method="post" enctype='multipart/form-data' style="width: 100%; display: flex; justify-content: center !important; align-items: center !important;">
               <?php
               foreach ($arrCamposChave as $k => $v) {
                 echo '<input type="hidden" name="' . $v['nome'] . '" value="' . $v['valor'] . '">';
@@ -77,7 +74,7 @@ $arrResultados = my_query($query);
               <table width="70%">
                 <?php
                 foreach ($arrCampos as $kCampos => $vCampos) {
-                  if (isset ($vCampos['editar'])) {
+                  if (isset($vCampos['editar'])) {
                     if ($vCampos['editar']) {
                       mostraCamposEditar($kCampos, $vCampos, $arrResultados[0][$kCampos]);
                     }
@@ -153,14 +150,6 @@ function mostraCamposEditar($campo, $arrInfo, $valor)
       echo "<td><div class='mb-3'><input class='form-control' type='float' name='$campo' value='$valor'></div></td>";
       break;
 
-    case 'tinyint':
-      echo "<td><div class='mb-3'><input class='form-control' type='tinyint' name='$campo' value='$valor'></div></td>";
-      break;
-    
-    case 'date':
-      echo "<td><div class='mb-3'><input type='date' class='form-control' name='$campo' value='$valor'></div></td>";
-      break;
-
     case 'file':
       echo "<td style='display: flex; align-items: center;'>";
       if ($valor) {
@@ -169,6 +158,8 @@ function mostraCamposEditar($campo, $arrInfo, $valor)
       echo "<div class='mb-3'><input type='file' class='form-control' name='$campo' id='$campo'></div>";
       echo "</td>";
       break;
+
+
     case 'password':
       echo "<td><input type='password' class='form-control' name='$campo' value='$valor'></td>";
       break;
@@ -180,7 +171,7 @@ function mostraCamposEditar($campo, $arrInfo, $valor)
     case 'radio':
       echo "<td>";
       // carregar de OPÇÕES pré-definidas
-      if (isset ($arrInfo['opcoes'])) {
+      if (isset($arrInfo['opcoes'])) {
         foreach ($arrInfo['opcoes'] as $k => $v) {
           $checked = '';
           if ($valor == $k) {
@@ -189,9 +180,9 @@ function mostraCamposEditar($campo, $arrInfo, $valor)
           echo "<input type='radio' name='$campo' value='$k' $checked>$v";
         }
         // carregar de uma tabela da BD  
-      } elseif (isset ($arrInfo['carrega_opcoes'])) {
+      } elseif (isset($arrInfo['carrega_opcoes'])) {
         $where = '';
-        if (isset ($arrInfo['carrega_opcoes']['ativo'])) {
+        if (isset($arrInfo['carrega_opcoes']['ativo'])) {
           $ativo = $arrInfo['carrega_opcoes']['ativo'];
           $where = "WHERE $ativo = '1'";
         }
@@ -216,7 +207,7 @@ function mostraCamposEditar($campo, $arrInfo, $valor)
       echo "<div class='mb-3'>";
       echo "<select class='form-select ' name='$campo'>";
       // carregar de OPÇÕES pré-definidas
-      if (isset ($arrInfo['opcoes'])) {
+      if (isset($arrInfo['opcoes'])) {
         foreach ($arrInfo['opcoes'] as $k => $v) {
           $selected = '';
           if ($valor == $k) {
@@ -226,18 +217,18 @@ function mostraCamposEditar($campo, $arrInfo, $valor)
         }
       }
       // carregar de uma tabela da BD 
-      elseif (isset ($arrInfo['carrega_opcoes'])) {
+      elseif (isset($arrInfo['carrega_opcoes'])) {
         $where = '';
-        if (isset ($arrInfo['carrega_opcoes']['ativo'])) {
+        if (isset($arrInfo['carrega_opcoes']['ativo'])) {
           $ativo = $arrInfo['carrega_opcoes']['ativo'];
           $where = "WHERE $ativo = '1'";
         }
         $tabela = $arrInfo['carrega_opcoes']['tabela'];
         $query = "SELECT * FROM $tabela $where";
         $arrResultados = my_query($query);
-        if (isset ($arrInfo['carrega_opcoes']['null'])) {
-          $null_legenda = isset ($arrInfo['carrega_opcoes']['null_legenda']) ? $arrInfo['carrega_opcoes']['null_legenda'] : 'Seleccione uma opção';
-          $null_valor = isset ($arrInfo['carrega_opcoes']['null_valor']) ? $arrInfo['carrega_opcoes']['null_valor'] : '';
+        if (isset($arrInfo['carrega_opcoes']['null'])) {
+          $null_legenda = isset($arrInfo['carrega_opcoes']['null_legenda']) ? $arrInfo['carrega_opcoes']['null_legenda'] : 'Seleccione uma opção';
+          $null_valor = isset($arrInfo['carrega_opcoes']['null_valor']) ? $arrInfo['carrega_opcoes']['null_valor'] : '';
           echo "<option value='$null_valor'>$null_legenda</option>";
         }
         foreach ($arrResultados as $k => $v) {

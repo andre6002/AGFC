@@ -3,12 +3,12 @@ include_once '../include/config.inc.php';
 include_once $arrConfig['dir_site'] . '/include/auth.inc.php';
 
 // Obter número total de sócios
-$sql_total = "SELECT COUNT(*) as total_socios FROM socios"; // substitua "socios" pelo nome da sua tabela
+$sql_total = "SELECT COUNT(*) as total_socios FROM socios";
 $result_total = my_query($sql_total);
 $total_socios = $result_total[0]['total_socios'];
 
 // Obter número de sócios inscritos nas últimas 24 horas
-$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataNasc >= NOW() - INTERVAL 1 DAY"; // substitua "dataNasc" pela sua coluna de data de inscrição
+$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataInscricao >= NOW() - INTERVAL 1 DAY";
 $result_recent = my_query($sql_recent);
 $recent_socios = $result_recent[0]['recent_socios'];
 ?>
@@ -29,8 +29,7 @@ $recent_socios = $result_recent[0]['recent_socios'];
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css"
-    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/4454d5d378.js" crossorigin="anonymous"></script>
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
@@ -40,11 +39,9 @@ $recent_socios = $result_recent[0]['recent_socios'];
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3"
-    id="sidenav-main">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
     <div class="sidenav-header mb-3">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-        aria-hidden="true" id="iconSidenav"></i>
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <img src="../img/logo.png" onclick="window.location.href=''" class="navbar-brand-img" alt="main_logo">
     </div>
     <hr class="horizontal dark mt-0 mb-2">
@@ -64,8 +61,7 @@ $recent_socios = $result_recent[0]['recent_socios'];
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-      navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -96,8 +92,7 @@ $recent_socios = $result_recent[0]['recent_socios'];
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center"
-              style="padding-right: 8px !important; padding-left: 8px !important;">
+            <li class="nav-item px-3 d-flex align-items-center" style="padding-right: 8px !important; padding-left: 8px !important;">
               <a href="../index.php" class="nav-link text-body p-0">
                 <i class="fa fa-right-from-bracket fixed-plugin-button-nav cursor-pointer"></i>
               </a>
@@ -121,8 +116,7 @@ $recent_socios = $result_recent[0]['recent_socios'];
               </div>
               <p class="mb-0 text-white">Meeting</p>
             </div>
-            <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1"
-              data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
+            <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
               <i class="fas fa-chevron-down text-white"></i>
             </a>
           </div>
@@ -140,8 +134,7 @@ $recent_socios = $result_recent[0]['recent_socios'];
                 </div>
               </div>
             </div>
-            <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1"
-              data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
+            <a href="<?php echo $arrConfig["url_admin"] ?>/socios" class="w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
               <i class="fas fa-chevron-down text-white"></i>
             </a>
           </div>

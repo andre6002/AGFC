@@ -2,50 +2,101 @@
 include '../../include/config.inc.php';
 include $arrConfig['dir_site'] . '/include/auth.inc.php';
 include 'dados.inc.php';
-
 ?>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-<link rel="icon" type="image/png" href="../../img/logo.png">
-<title>
-  Inserir socios
-</title>
-<!--     Fonts and icons     -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-<!-- Nucleo Icons -->
-<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-<link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-<!-- Font Awesome Icons -->
-<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-<link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-<!-- CSS Files -->
-<link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../../img/logo.png">
+  <title>Inserir lugares anuais</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+  <style>
+    .lugares-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 20px 0;
+      max-height: 400px;
+      overflow-y: auto;
+      width: 100%;
+    }
+
+    .fila {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .lugar {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      color: white;
+      border-radius: 50%;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+
+    .lugar.ocupado {
+      background-color: red;
+      cursor: not-allowed;
+    }
+
+    .lugar.livre {
+      background-color: green;
+    }
+
+    .lugar.selected {
+      background-color: blue;
+    }
+
+    .lugar input {
+      display: none;
+    }
+
+    .lugar:has(input:checked+span) {
+      background-color: blue;
+    }
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .form-section .lugares-container {
+      width: 100%;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 
 <body class="bg-gray-100">
 
   <div class="container">
     <div class="row">
-      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto"
-        style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
+      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto" style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
         <div class="card card-plain mt-8" style="margin-top: 0px !important;">
           <div class="card-header pb-0 text-left bg-transparent">
-            <h2 style="margin-left: 6rem;" class="font-weight-bolder text-info text-gradient">
-              <?php echo $nome_modulo; ?>
-            </h2>
+            <h2 style="margin-left: 6rem;" class="font-weight-bolder text-info text-gradient"><?php echo $nome_modulo; ?></h2>
           </div>
-          <div class="card-body"
-            style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; display: flex; justify-content: center; align-items: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
+          <div class="card-body form-section" style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
             <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px; z-index: 1000;">
               <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
-            </a> <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px;">
-              <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
             </a>
-            <form action="trata_inserir.php" method="post" enctype='multipart/form-data'
-              style="width: 100%; display: flex; justify-content: center; align-items: center;">
-              <table width="70%">
+            <form id="lugarForm" action="trata_inserir.php" method="post" enctype='multipart/form-data' style="width: 100%;">
+              <table width="100%">
                 <?php
                 foreach ($arrCampos as $kCampos => $vCampos) {
                   if (isset($vCampos['inserir'])) {
@@ -56,29 +107,54 @@ include 'dados.inc.php';
                 }
                 ?>
                 <tr>
-                  <td width="100"></td>
-                  <td>
+                  <td colspan="2">
                     <div class="text-center"><input type="submit" class="btn btn-info btn-sm w-60 mt-4 mb-0"></div>
                   </td>
                 </tr>
               </table>
+              <input type="hidden" name="fila" value="">
+              <input type="hidden" name="numeroDoLugar" value="">
             </form>
+            <div id="lugaresContainer" class="lugares-container"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    function renderLugares(codBancada) {
+      fetch('get_lugares.php?codBancada=' + codBancada)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('lugaresContainer').innerHTML = data;
+          document.querySelectorAll('.lugar input').forEach(function(input) {
+            input.addEventListener('change', function() {
+              var [fila, lugar] = this.value.split('-');
+              document.querySelector('input[name="fila"]').value = fila;
+              document.querySelector('input[name="numeroDoLugar"]').value = lugar;
+            });
+          });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('select[name="codBancada"]').addEventListener('change', function() {
+        renderLugares(this.value);
+      });
+    });
+  </script>
 </body>
 
+</html>
 
 <?php
-
-
-// funções para tratar os campos
 function mostraCamposInserir($campo, $arrInfo)
 {
+
   echo '<tr>';
-  echo "<td>$arrInfo[legenda]</td>";
+  echo "<td style='width: 15%;'>$arrInfo[legenda]</td>";
+
 
   switch ($arrInfo['tipo']) {
     case 'text':
@@ -105,6 +181,7 @@ function mostraCamposInserir($campo, $arrInfo)
     case 'tinyint':
       echo "<td><div class='py-2'><input class='form-control' type='tinyint' name='$campo'></div></td>";
       break;
+
     case 'password':
       echo "<td><input type='password' class='form-control' name='$campo'></td>";
       break;
@@ -115,37 +192,13 @@ function mostraCamposInserir($campo, $arrInfo)
 
     case 'radio':
       echo "<td>";
-      // carregar de OPÇÕES pré-definidas
-      if (isset($arrInfo['opcoes'])) {
-        foreach ($arrInfo['opcoes'] as $k => $v) {
-          $checked = '';
-          if (isset($arrInfo['default'])) {
-            if ($arrInfo['default'] == $k) {
-              $checked = 'checked="checked"';
-            }
-          }
-          echo "<input type='radio' name='$campo' value='$k' $checked>$v";
-        }
-        // carregar de uma tabela da BD  
-      } elseif (isset($arrInfo['carrega_opcoes'])) {
-        $where = '';
-        if (isset($arrInfo['carrega_opcoes']['ativo'])) {
-          $ativo = $arrInfo['carrega_opcoes']['ativo'];
-          $where = "WHERE $ativo = '1'";
-        }
-        $tabela = $arrInfo['carrega_opcoes']['tabela'];
-        $query = "SELECT * FROM $tabela $where";
-        $arrResultados = my_query($query);
-        foreach ($arrResultados as $k => $v) {
-          $checked = '';
-          if (isset($arrInfo['default'])) {
-            if ($arrInfo['default'] == $v[$arrInfo['carrega_opcoes']['chave']]) {
-              $checked = 'checked="checked"';
-            }
-          }
-          $id = $v[$arrInfo['carrega_opcoes']['chave']];
-          $legenda = $v[$arrInfo['carrega_opcoes']['legenda']];
-          echo "<input type='radio' name='$campo' value='$id' $checked>$legenda";
+      if (isset($arrInfo['carrega_opcoes'])) {
+        $opcoes = carregarOpcoes($arrInfo['carrega_opcoes']);
+        foreach ($opcoes as $k => $v) {
+          echo "<div class='form-check'>";
+          echo "<input class='form-check-input' type='radio' name='$campo' value='$k'>";
+          echo "<label class='form-check-label'>$v</label>";
+          echo "</div>";
         }
       }
       echo "</td>";
@@ -154,43 +207,28 @@ function mostraCamposInserir($campo, $arrInfo)
     case 'select':
       echo "<td>";
       echo "<div class='py-2'>";
-      echo "<select class='form-select ' name='$campo'>";
-      // carregar de OPÇÕES pré-definidas
+      echo "<select class='form-select' name='$campo'>";
       if (isset($arrInfo['opcoes'])) {
         foreach ($arrInfo['opcoes'] as $k => $v) {
           $selected = '';
-          if (isset($arrInfo['default'])) {
-            if ($arrInfo['default'] == $k) {
-              $selected = 'selected="selected"';
-            }
+          if (isset($arrInfo['default']) && $arrInfo['default'] == $k) {
+            $selected = 'selected="selected"';
           }
           echo "<option value='$k' $selected>$v</option>";
         }
-        // carregar de uma tabela da BD
       } elseif (isset($arrInfo['carrega_opcoes'])) {
-        $where = '';
-        if (isset($arrInfo['carrega_opcoes']['ativo'])) {
-          $ativo = $arrInfo['carrega_opcoes']['ativo'];
-          $where = "WHERE $ativo = '1'";
-        }
-        $tabela = $arrInfo['carrega_opcoes']['tabela'];
-        $query = "SELECT * FROM $tabela " . "$where";
-        $arrResultados = my_query($query);
+        $opcoes = carregarOpcoes($arrInfo['carrega_opcoes']);
         if (isset($arrInfo['carrega_opcoes']['null'])) {
-          $null_legenda = isset($arrInfo['carrega_opcoes']['null_legenda']) ? $arrInfo['carrega_opcoes']['null_legenda'] : 'Seleccione uma opção';
+          $null_legenda = isset($arrInfo['carrega_opcoes']['null_legenda']) ? $arrInfo['carrega_opcoes']['null_legenda'] : 'Selecione uma opção';
           $null_valor = isset($arrInfo['carrega_opcoes']['null_valor']) ? $arrInfo['carrega_opcoes']['null_valor'] : '';
           echo "<option value='$null_valor'>$null_legenda</option>";
         }
-        foreach ($arrResultados as $k => $v) {
+        foreach ($opcoes as $k => $v) {
           $selected = '';
-          if (isset($arrInfo['default'])) {
-            if ($arrInfo['default'] == $v[$arrInfo['carrega_opcoes']['chave']]) {
-              $selected = 'selected="selected"';
-            }
+          if (isset($arrInfo['default']) && $arrInfo['default'] == $k) {
+            $selected = 'selected="selected"';
           }
-          $id = $v[$arrInfo['carrega_opcoes']['chave']];
-          $legenda = $v[$arrInfo['carrega_opcoes']['legenda']];
-          echo "<option value='$id' $selected>$legenda</option>";
+          echo "<option value='$k' $selected>$v</option>";
         }
       }
       echo "</select>";
@@ -199,15 +237,34 @@ function mostraCamposInserir($campo, $arrInfo)
       break;
 
     case 'checkbox':
-      $ativo = '';
-      if (isset($arrInfo['default'])) {
-        if ($arrInfo['default']) {
-          $ativo = 'checked="checked"';
-        }
-      }
+      $ativo = isset($arrInfo['default']) && $arrInfo['default'] ? 'checked' : '';
       echo "<td><div class='form-check form-check-info text-left'><input class='form-check-input' type='checkbox' name='$campo' $ativo></div></td>";
       break;
   }
 
   echo '</tr>';
 }
+
+function carregarOpcoes($arrOpcoes)
+{
+  global $arrConfig;
+
+  $tabela = $arrOpcoes['tabela'];
+  $chave = $arrOpcoes['chave'];
+  $legenda = $arrOpcoes['legenda'];
+
+  $query = "
+  SELECT $chave, $legenda 
+  FROM $tabela 
+  WHERE $chave NOT IN (SELECT codSocio1 FROM lugar_anual WHERE codSocio1 IS NOT NULL)
+    AND $chave NOT IN (SELECT codSocio2 FROM lugar_anual WHERE codSocio2 IS NOT NULL)";
+  $result = my_query($query);
+  $opcoes = [];
+  if ($result) {
+    foreach ($result as $linha) {
+      $opcoes[$linha[$chave]] = $linha[$legenda];
+    }
+  }
+  return $opcoes;
+}
+?>
