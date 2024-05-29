@@ -2,25 +2,25 @@
 include '../../include/config.inc.php';
 include $arrConfig['dir_site'] . '/include/auth.inc.php';
 include 'dados.inc.php';
- 
+
 // Iniciar o buffer de saída
 ob_start();
- 
+
 // (1) obter informações dos campos Chave
 $arrCamposChave = array();
 foreach ($arrCampos as $kCampos => $vCampos) {
   if (isset($vCampos['chave']) && $vCampos['chave']) {
-    $valor = $_POST[$kCampos] ?? ''; 
+    $valor = $_POST[$kCampos] ?? '';
     $arrCamposChave[] = array('nome' => $kCampos, 'valor' => $valor);
   }
 }
- 
+
 $strCamposChave = '';
 foreach ($arrCamposChave as $k => $v) {
   $strCamposChave .= "$v[nome] = '$v[valor]' AND ";
 }
 $strCamposChave = substr($strCamposChave, 0, -5);
- 
+
 // (2) Construir strings com as informações dos Campos
 $strCamposValores = '';
 foreach ($arrCampos as $kCampos => $vCampos) {
@@ -48,16 +48,16 @@ foreach ($arrCampos as $kCampos => $vCampos) {
   }
 }
 $strCamposValores = substr($strCamposValores, 0, -2);
- 
+
 // Query
 $query = "UPDATE $modulo SET $strCamposValores WHERE $strCamposChave";
 $result = my_query($query);
- 
+
 if (isset($arrConfig['production']) && !$arrConfig['production'] && !$result) {
-  die("ERRO: " . $query); 
+  die("ERRO: " . $query);
 }
- 
+
 ob_end_clean();
- 
+
 header('Location: ' . $arrConfig['url_admin'] . '/' . $modulo . '/');
 exit;
