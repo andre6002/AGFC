@@ -65,3 +65,4 @@ $arrCampos = array(
         'editar' => 1
     )
 );
+?>

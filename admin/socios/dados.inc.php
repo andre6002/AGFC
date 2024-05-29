@@ -9,7 +9,7 @@ $arrCampos = array(
         'chave' => 1,
         'listagem' => 1,
         'inserir' => 0,
-        'editar' => 1,
+        'editar' => 0,
         'largura' => 50
     ),
     'fotoSocio' => array(

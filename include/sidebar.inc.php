@@ -46,12 +46,12 @@ $pages = [
         'name' => 'Partilha de Lugar Anual',
         'active' => false,
     ],
-    // 'trocas' => [
-    //     'icon' => 'fa-solid fa-right-left fa-2x',
-    //     'url' => $arrConfig['url_admin'] . '/trocas',
-    //     'name' => 'Troca de Lugar Anual',
-    //     'active' => false,
-    // ],
+    'trocas' => [
+        'icon' => 'fa-solid fa-right-left fa-2x',
+        'url' => $arrConfig['url_admin'] . '/trocas',
+        'name' => 'Troca de Lugar Anual',
+        'active' => false,
+    ],
     'noticias' => [
         'icon' => 'fa-solid fa-newspaper fa-2x',
         'url' => $arrConfig['url_admin'] . '/noticias',
