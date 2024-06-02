@@ -99,67 +99,8 @@
 .tabela-quotas .tipo-central {
   background-color: #83e0c3;
   color: #ffffff;
-=======
-.lugares-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 20px 0;
-  max-height: 400px;
-  overflow-y: auto;
-  width: 100%;
 }
 
-.fila {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.lugar {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: white;
-  border-radius: 50%;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-.lugar.ocupado {
-  background-color: red;
-  cursor: not-allowed;
-}
-
-.lugar.livre {
-  background-color: green;
-}
-
-.lugar.selected {
-  background-color: blue;
-}
-
-.lugar input {
-  display: none;
-}
-
-.lugar:has(input:checked+span) {
-  background-color: blue;
-}
-
-.form-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.form-section .lugares-container {
-  width: 100%;
-  margin-top: 20px;
->>>>>>> ec375f8fddb9d58974d1e7d192330f0cec08a458
-}
 
 body {
   margin: 0;
