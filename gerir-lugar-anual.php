@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <nav class="site-navigation position-relative text-right bg-black text-md-right" role="navigation">
         <div class="container position-relative">
           <div class="site-logo">
-            <a href="index"><img src="img/logo.png" alt=""></a>
+            <a href="index.php"><img src="img/logo.png" alt=""></a>
           </div>
           <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3">
             <a href="#" class="site-menu-toggle js-menu-toggle text-white">
@@ -167,36 +167,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </a>
           </div>
 
-          <ul class="site-menu js-clone-nav d-none d-md-block">
-            <li class="has-children active">
-              <a href="index">Home</a>
-              <ul class="dropdown arrow-top">
-                <li><a href="#">Menu One</a></li>
-                <li><a href="#">Menu Two</a></li>
-                <li><a href="#">Menu Three</a></li>
-                <li class="has-children">
-                  <a href="#">Sub Menu</a>
-                  <ul class="dropdown">
-                    <li><a href="#">Menu One</a></li>
-                    <li><a href="#">Menu Two</a></li>
-                    <li><a href="#">Menu Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="has-children">
-              <a href="news">News</a>
-              <ul class="dropdown arrow-top">
-                <li><a href="#">Menu One</a></li>
-                <li><a href="#">Menu Two</a></li>
-                <li><a href="#">Menu Three</a></li>
-              </ul>
-            </li>
-            <li><a href="matches">Matches</a></li>
-            <li><a href="team">Team</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="contact">Contact</a></li>
-          </ul>
+          <?php
+          include 'include/menu.inc.php';
+          ?>
         </div>
       </nav>
     </header>
@@ -214,79 +187,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="site-section bg-light" data-aos="fade-up" id="verificacao">
       <div class="container">
+        <h2 class="text-black mb-3 heading">Insira os seus dados</h2>
         <div class="row align-items-first">
-          <div class="col-md-7">
-            <form action="gerir-lugar-anual.php" method="post" class="bg-white p-5">
-              <div class="form-group">
-                <label for="codSocio" class="text-black">Número de Sócio</label>
-                <input type="text" class="form-control" id="codSocio" name="codSocio" required>
-              </div>
-              <div class="form-group">
-                <label for="CC" class="text-black">Cartão de Cidadão</label>
-                <input type="text" class="form-control" id="CC" name="CC" required>
-              </div>
-              <button type="submit" class="btn btn-primary btn-lg btn-block" name="verify">Verificar</button>
-            </form>
-            <div class="mt-4">
-              <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado) echo '<div class="alert alert-info">' . $resultado . '</div>'; ?>
-            </div>
-          </div>
 
-          <div class="col-md-5">
-            <?php if ($showActions) : ?>
+          <?php if ($showActions === true) : ?>
+            <div class="col-md-5">
               <div class="p-4 border mb-3 bg-white">
-                <button class="btn btn-secondary btn-block mb-3" onclick="mostrarFormPartilhar()">Partilhar</button>
-                <button class="btn btn-secondary btn-block mb-3" onclick="mostrarFormTrocar()">Trocar</button>
+                <button class="btn btn-primary btn-block mb-3" onclick="mostrarFormPartilhar()">Partilhar</button>
+                <button class="btn btn-primary btn-block mb-3" onclick="mostrarFormTrocar()">Trocar</button>
               </div>
-              <div class="mt-4" id="formPartilhar" style="display: none;">
-                <form action="gerir-lugar-anual.php" method="post" class="bg-white p-5">
-                  <input type="hidden" name="codSocio" value="<?php echo htmlspecialchars($codSocio); ?>">
-                  <input type="hidden" name="action" value="share">
-                  <div class="form-group">
-                    <label for="codSocioPartilha" class="text-black">Número de Sócio</label>
-                    <input type="text" class="form-control" id="codSocioPartilha" name="codSocioPartilha" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="CCPartilha" class="text-black">Cartão de Cidadão</label>
-                    <input type="text" class="form-control" id="CCPartilha" name="CCPartilha" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-lg btn-block" name="share">Confirmar Partilha</button>
-                </form>
+            </div>
+            <div class="col-md-7" id="formPartilhar" style="display: none;">
+              <form action="gerir-lugar-anual.php" method="post" class="bg-white p-5">
+                <h4 class="text-black mb-3 heading">Insira os dados do sócio a partilhar</h4>
+                <input type="hidden" name="codSocio" value="<?php echo htmlspecialchars($codSocio); ?>">
+                <input type="hidden" name="action" value="share">
+                <div class="form-group">
+                  <label for="codSocioPartilha" class="text-black">Número de Sócio</label>
+                  <input type="text" class="form-control" id="codSocioPartilha" name="codSocioPartilha" required>
+                </div>
+                <div class="form-group">
+                  <label for="CCPartilha" class="text-black">Cartão de Cidadão</label>
+                  <input type="text" class="form-control" id="CCPartilha" name="CCPartilha" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" name="share">Confirmar Partilha</button>
+              </form>
+            </div>
+            <div class="col-md-7" id="formTrocar" style="display: none;">
+              <form action="gerir-lugar-anual.php" method="post" class="bg-white p-5">
+                <h4 class="text-black mb-3 heading">Insira os dados do sócio a trocar</h4>
+                <input type="hidden" name="codSocio" value="<?php echo htmlspecialchars($codSocio); ?>">
+                <input type="hidden" name="action" value="swap">
+                <div class="form-group">
+                  <label for="codSocioPartilha" class="text-black">Número de Sócio</label>
+                  <input type="text" class="form-control" id="codSocioPartilha" name="codSocioPartilha" required>
+                </div>
+                <div class="form-group">
+                  <label for="CCPartilha" class="text-black">Cartão de Cidadão</label>
+                  <input type="text" class="form-control" id="CCPartilha" name="CCPartilha" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" name="swap">Confirmar Troca</button>
+              </form>
+            </div>
+          <?php else : ?>
+            <div class="col-md-7">
+              <form action="gerir-lugar-anual.php" method="post" class="bg-white p-5">
+                <div class="form-group">
+                  <label for="codSocio" class="text-black">Número de Sócio</label>
+                  <input type="text" class="form-control" id="codSocio" name="codSocio" required>
+                </div>
+                <div class="form-group">
+                  <label for="CC" class="text-black">Cartão de Cidadão</label>
+                  <input type="text" class="form-control" id="CC" name="CC" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" name="verify">Verificar</button>
+              </form>
+              <div class="mt-4">
+                <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado) echo '<div class="alert alert-info">' . $resultado . '</div>'; ?>
               </div>
-              <div class="mt-4" id="formTrocar" style="display: none;">
-                <form action="gerir-lugar-anual.php" method="post" class="bg-white p-5">
-                  <input type="hidden" name="codSocio" value="<?php echo htmlspecialchars($codSocio); ?>">
-                  <input type="hidden" name="action" value="swap">
-                  <div class="form-group">
-                    <label for="codSocioPartilha" class="text-black">Número de Sócio</label>
-                    <input type="text" class="form-control" id="codSocioPartilha" name="codSocioPartilha" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="CCPartilha" class="text-black">Cartão de Cidadão</label>
-                    <input type="text" class="form-control" id="CCPartilha" name="CCPartilha" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-lg btn-block" name="swap">Confirmar Troca</button>
-                </form>
-              </div>
-            <?php endif; ?>
-          </div>
+            </div>
+
+          <?php endif; ?>
         </div>
       </div>
     </div>
 
-    <footer class="site-footer border-top">
-      <div class="container">
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-              &copy; <script>
-                document.write(new Date().getFullYear());
-              </script> Todos os direitos reservados | Este template é feito com <i class="icon-heart-o" aria-hidden="true"></i> por <a href="https://colorlib.com" target="_blank">Colorlib</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <?php include 'include/rodape.inc.php'; ?>
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>

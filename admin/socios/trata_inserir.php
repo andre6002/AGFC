@@ -26,7 +26,7 @@ function atribuirQuota($idade)
   if (count($result) > 0) {
     return $result[0]['codQuota'];
   }
-  return null; // Retorna null se nenhuma quota for encontrada
+  return null;
 }
 
 // Calcular a idade do sócio

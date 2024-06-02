@@ -15,10 +15,10 @@ $total_lugar_anual = $result_lugar_anual[0]['total_lugar_anual'];
 // Obter número de sócios inscritos nas últimas 24 horas
 $today = date('Y-m-d');
 $yesterday = date('Y-m-d', strtotime('-1 day', strtotime($today)));
-$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataInscricao BETWEEN '$yesterday 00:00:00' AND '$today 23:59:59'";
-$result_recent = my_query($sql_recent);
+$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataInscricao BETWEEN '$yesterday' AND '$today'";
 $result_recent = my_query($sql_recent);
 $recent_socios = $result_recent[0]['recent_socios'];
+
 
 // Obter quotas
 $sql_quotas = "SELECT tipo, idadeMin, idadeMax, cartao, quota, inscricao FROM quotas";
@@ -28,7 +28,7 @@ $result_quotas = my_query($sql_quotas);
 // Obter número de sócios inscritos nas últimas 24 horas
 $today = date('Y-m-d');
 $yesterday = date('Y-m-d', strtotime('-1 day', strtotime($today)));
-$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataInscricao = '$yesterday'";
+$sql_recent = "SELECT COUNT(*) as recent_socios FROM socios WHERE dataInscricao BETWEEN '$yesterday' AND '$today'";
 $result_recent = my_query($sql_recent);
 $recent_socios = $result_recent[0]['recent_socios'];
 

@@ -17,8 +17,7 @@ include 'dados.inc.php';
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css"
-    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
   <style>
@@ -30,21 +29,18 @@ include 'dados.inc.php';
 
   <div class="container">
     <div class="row">
-      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto"
-        style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
+      <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto" style="width: 100%; margin-left: 0px !important; margin-right: 0px !important;">
         <div class="card card-plain mt-8" style="margin-top: 0px !important;">
           <div class="card-header pb-0 text-left bg-transparent">
             <h2 style="margin-left: 6rem;" class="font-weight-bolder text-info text-gradient">
               <?php echo $nome_modulo; ?>
             </h2>
           </div>
-          <div class="card-body form-section"
-            style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
+          <div class="card-body form-section" style="position: relative; background: #fff; border: 1px solid #dee2e6; border-radius: 1rem; padding-top: 3rem; padding-bottom: 1rem; text-align: center; box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05); width: 80%; margin: 0 auto;">
             <a href="../<?php echo $modulo; ?>" style="position: absolute; right: 20px; top: 15px; z-index: 1000;">
               <i class="fas fa-times" style="color: #000; font-size: 24px;"></i>
             </a>
-            <form id="lugarForm" action="trata_inserir.php" method="post" enctype='multipart/form-data'
-              style="width: 100%;">
+            <form id="lugarForm" action="trata_inserir.php" method="post" enctype='multipart/form-data' style="width: 100%;">
               <table width="100%">
                 <?php
                 foreach ($arrCampos as $kCampos => $vCampos) {
@@ -77,8 +73,8 @@ include 'dados.inc.php';
         .then(response => response.text())
         .then(data => {
           document.getElementById('lugaresContainer').innerHTML = data;
-          document.querySelectorAll('.lugar input').forEach(function (input) {
-            input.addEventListener('change', function () {
+          document.querySelectorAll('.lugar input').forEach(function(input) {
+            input.addEventListener('change', function() {
               var [fila, lugar] = this.value.split('-');
               document.querySelector('input[name="fila"]').value = fila;
               document.querySelector('input[name="numeroDoLugar"]').value = lugar;
@@ -87,8 +83,8 @@ include 'dados.inc.php';
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelector('select[name="codBancada"]').addEventListener('change', function () {
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('select[name="codBancada"]').addEventListener('change', function() {
         renderLugares(this.value);
       });
     });
@@ -224,3 +220,65 @@ function carregarOpcoes($arrOpcoes)
   return $opcoes;
 }
 ?>
+
+<style>
+  .lugares-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0;
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  .fila {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .lugar {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  .lugar.ocupado {
+    background-color: red;
+    cursor: not-allowed;
+  }
+
+  .lugar.livre {
+    background-color: green;
+  }
+
+  .lugar.selected {
+    background-color: blue;
+  }
+
+  .lugar input {
+    display: none;
+  }
+
+  .lugar:has(input:checked+span) {
+    background-color: blue;
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-section .lugares-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+</style>
