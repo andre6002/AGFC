@@ -49,6 +49,57 @@
   }
 }
 
+.tabela-quotas {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  text-align: left;
+}
+
+.tabela-quotas th,
+.tabela-quotas td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.tabela-quotas th {
+  background-color: #2A72B5;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  border-bottom: 1px solid #dddddd;
+}
+
+.tabela-quotas td {
+  border-bottom: 1px solid #dddddd;
+  color: #000000;
+}
+
+.tabela-quotas tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.tabela-quotas .tipo-superior {
+  background-color: #d4a017;
+  color: #ffffff;
+}
+
+.tabela-quotas .tipo-arquibancada {
+  background-color: #f9c2d7;
+  color: #ffffff;
+}
+
+.tabela-quotas .tipo-lateral {
+  background-color: #6da8e5;
+  color: #ffffff;
+}
+
+.tabela-quotas .tipo-central {
+  background-color: #83e0c3;
+  color: #ffffff;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);
