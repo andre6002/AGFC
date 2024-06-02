@@ -17,11 +17,11 @@ $arrConfig['langs'] = array('pt' => 'Português', 'en' => 'English');
 $arrConfig['servername'] = 'localhost';
 $arrConfig['username'] = 'root';
 $arrConfig['password'] = '';
-$arrConfig['dbname'] = 'agfc';
+$arrConfig['dbname'] = 'agfc2';
 
 
-$arrConfig['url_site'] = 'http://localhost/agfc/';
-$arrConfig['dir_site'] = 'C:/wamp64/www/agfc';
+$arrConfig['url_site'] = 'http://localhost/AGFC/Sem nome';
+$arrConfig['dir_site'] = '/Applications/XAMPP/xamppfiles/htdocs/AGFC/Sem nome';
 $arrConfig['url_admin'] = $arrConfig['url_site'] . "/admin";
 $arrConfig['dir_admin'] = $arrConfig['dir_site'] . '/admin';
 
