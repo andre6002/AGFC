@@ -40,9 +40,11 @@ $strCamposChave = substr($strCamposChave, 0, -1);
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+    id="sidenav-main">
     <div class="sidenav-header mb-3">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+        aria-hidden="true" id="iconSidenav"></i>
       <img src="../../img/logo.png" onclick="window.location.href=''" class="navbar-brand-img" alt="main_logo">
     </div>
     <hr class="horizontal dark mt-0 mb-2">
@@ -64,7 +66,8 @@ $strCamposChave = substr($strCamposChave, 0, -1);
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+      navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -74,7 +77,8 @@ $strCamposChave = substr($strCamposChave, 0, -1);
             </li>
           </ol>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" style="justify-content: flex-end" id="navbar">
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" style="justify-content: flex-end"
+          id="navbar">
 
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
@@ -97,7 +101,8 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center" style="padding-right: 8px !important; padding-left: 8px !important;">
+            <li class="nav-item px-3 d-flex align-items-center"
+              style="padding-right: 8px !important; padding-left: 8px !important;">
               <a href="../../index.php" class="nav-link text-body p-0">
                 <i class="fa fa-right-from-bracket fixed-plugin-button-nav cursor-pointer"></i>
               </a>
@@ -210,16 +215,16 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                           <i class='fa fa-address-card'></i>
                         </a>
                         <div class='myModal modal' data-index='$index'>
-                          <div class='modal-content'>
+                        <div class='modal-content'>
                             <span class='close'>&times;</span>
                             <div class='card-socio'>
-                              <img src='" . $arrConfig['url_site'] . "/uploads/" . $v['fotoSocio'] . "' alt='Foto de " . $v['nomeSocio'] . "'>
-                              <div class='nomeSocio'>" . $v['nomeSocio'] . "</div>
-                              <div class='codSocio'>Nº: " . $v['codSocio'] . "</div>
-                              <div class='dataInscricao'>Sócio desde: " . date('d/m/Y', strtotime($v['dataInscricao'])) . "</div>
-                            </div>
-                          </div>
+                                <img class='fotosocio' src='" . $arrConfig['url_site'] . "/uploads/" . $v['fotoSocio'] . "' alt='Foto de " . $v['nomeSocio'] . "'>
+                                <img class='logo' src='../../img/logo.png' alt='Logo'>
+                                <div class='nomeSocio'>" . $v['nomeSocio'] . "</div>
+                                <div class='codSocio'>Nº de Sócio: " . $v['codSocio'] . "</div>
+                                <div class='dataInscricao text-right'>Sócio desde: <br>" . date('d/m/Y', strtotime($v['dataInscricao'])) . "</div>
                         </div>
+                    </div>
                       </td>";
                       }
 
@@ -241,7 +246,7 @@ $strCamposChave = substr($strCamposChave, 0, -1);
                         <span class="sr-only">Anterior</span>
                       </a>
                     </li>
-                    <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                       <li class="page-item <?php echo ($i === $page) ? 'active' : ''; ?>">
                         <a class="page-link" href="?page=<?php echo $i; ?>">
                           <?php echo $i; ?>
@@ -279,27 +284,27 @@ $strCamposChave = substr($strCamposChave, 0, -1);
     <!-- Control Center for Soft Dashboard -->
     <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         var modalBtns = document.querySelectorAll('.myBtn');
         var modals = document.querySelectorAll('.myModal');
 
-        modalBtns.forEach(function(btn) {
-          btn.addEventListener('click', function() {
+        modalBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
             var index = btn.getAttribute('data-index');
             var modal = document.querySelector('.myModal[data-index="' + index + '"]');
             modal.style.display = "flex";
           });
         });
 
-        modals.forEach(function(modal) {
+        modals.forEach(function (modal) {
           var span = modal.querySelector('.close');
-          span.addEventListener('click', function() {
+          span.addEventListener('click', function () {
             modal.style.display = "none";
           });
         });
 
-        window.addEventListener('click', function(event) {
-          modals.forEach(function(modal) {
+        window.addEventListener('click', function (event) {
+          modals.forEach(function (modal) {
             if (event.target == modal) {
               modal.style.display = "none";
             }
@@ -313,20 +318,24 @@ $strCamposChave = substr($strCamposChave, 0, -1);
 
 <style>
   .modal {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Semi-transparent background */
   }
 
   .modal-content {
     position: relative;
     width: 600px;
-    height: 315px;
+    height: 350px;
     max-width: 100%;
     background-color: transparent;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .close {
@@ -342,43 +351,54 @@ $strCamposChave = substr($strCamposChave, 0, -1);
   .card-socio {
     width: 100%;
     height: 100%;
-    background: url('../../img/bg-socio.webp') no-repeat center center;
+    background: url('../../img/bg-socio.jpg') no-repeat center center;
+    background-size: cover;
     color: white;
     position: relative;
     padding: 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
-  .card-socio img {
+  .card-socio .logo {
     width: 100px;
-    height: 100px;
-    border-radius: 3%;
+    height: auto;
     position: absolute;
-    object-fit: cover;
     top: 20px;
-    left: 20px;
-    max-width: 100%;
-    max-height: 100%;
-    margin-top: 20px;
+    right: 20px;
+  }
+
+  .card-socio .fotosocio {
+    width: 170px;
+    height: 170px;
+    border-radius: 5px;
+    object-fit: cover;
+    position: absolute;
+    top: 50px;
+    left: 35px;
   }
 
   .card-socio .nomeSocio {
     position: absolute;
-    bottom: 60px;
-    left: 20px;
+    bottom: 80px;
+    left: 35px;
     font-size: 18px;
     font-weight: bold;
+    white-space: nowrap;
   }
 
   .card-socio .codSocio,
   .card-socio .dataInscricao {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
+    bottom: 58px;
+    left: 35px;
     font-size: 14px;
+    white-space: nowrap;
   }
 
   .card-socio .dataInscricao {
-    left: 200px;
+    left: 500px;
   }
 </style>
