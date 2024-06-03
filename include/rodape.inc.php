@@ -19,6 +19,7 @@
                             <li><a href="socios.php">Sócios</a></li>
                             <li><a href="lugar-anual.php">Lugar Anual</a></li>
                             <li><a href="noticias.php">Notícias</a></li>
+                            <li><a href="vantagens.php">Vantagens</a></li>
                             <li><a href="sobre.php">Sobre</a></li>
                         </ul>
                     </div>
@@ -35,7 +36,7 @@
 
                     <form action="#" method="post">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Insirir Email" aria-label="Enter Email" aria-describedby="button-addon2">
+                            <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Inserir Email" aria-label="Enter Email" aria-describedby="button-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button" id="button-addon2">Enviar</button>
                             </div>

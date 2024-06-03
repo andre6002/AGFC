@@ -18,12 +18,21 @@ include 'include/config.inc.php';
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/owl.carousel.min.css">
   <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-
   <link rel="stylesheet" href="css/aos.css">
-
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="assets/css/all.min.css">
+  <!-- Font Awesome Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/4454d5d378.js" crossorigin="anonymous"></script>
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <style>
+
+  </style>
 </head>
 
 <body>
@@ -44,7 +53,6 @@ include 'include/config.inc.php';
       </nav>
     </header>
 
-
     <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-start">
@@ -58,21 +66,26 @@ include 'include/config.inc.php';
 
     <div class="site-section">
       <div class="container">
+        <div class="text-right">
+          <button id="grid-view-btn" class="btn btn-secondary active"><i class="fa-solid fa-grip align-middle"></i></button>
+          <button id="list-view-btn" class="btn btn-secondary"><i class="fa-solid fa-bars align-middle"></i></button>
+        </div>
         <?php
         $news = my_query("SELECT * FROM noticias ORDER BY data_publicacao");
         ?>
-        <div class="site-section">
+
+        <!-- Visualização em Mosaico -->
+        <div class="site-section news-grid-view" id="grid-view">
           <div class="container">
             <div class="row">
               <?php foreach ($news as $key => $value) {
-                // Gerar URL amigável para SEO
                 $titulo_url = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $value['titulo']));
               ?>
                 <div class="col-lg-4 col-md-6 mb-4">
-                  <div class="post-entry" style="height: 500px; border-radius: 10px">
+                  <div class="post-entry">
                     <div class="image">
                       <a href="noticia-unica.php?id=<?= $value['id'] ?>&title=<?= $titulo_url ?>">
-                        <img class="img-fluid" src="uploads/<?= $value['imagem'] ?>" alt="<?= $value['titulo'] ?>" style="border-radius: 10px 10px 0 0;">
+                        <img class="img-fluid" src="uploads/<?= $value['imagem'] ?>" alt="<?= $value['titulo'] ?>">
                       </a>
                     </div>
                     <div class="text p-4">
@@ -90,143 +103,41 @@ include 'include/config.inc.php';
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  </div>
 
-  <footer class="site-footer border-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="mb-5">
-            <h3 class="footer-heading mb-4">About Sportz</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe pariatur reprehenderit vero atque, consequatur id ratione, et non dignissimos culpa? Ut veritatis, quos illum totam quis blanditiis, minima minus odio!</p>
-          </div>
-
-          <div class="mb-5">
-            <h3 class="footer-heading mb-4">Recent Blog</h3>
-            <div class="block-25">
-              <ul class="list-unstyled">
-                <li class="mb-3">
-                  <a href="#" class="d-flex">
-                    <figure class="image mr-4">
-                      <img src="images/img_1.jpg" alt="" class="img-fluid">
-                    </figure>
-                    <div class="text">
-                      <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
+        <!-- Visualização em Linhas -->
+        <div class="site-section news-list-view hidden" id="list-view">
+          <div class="container">
+            <div class="row">
+              <?php foreach ($news as $key => $value) {
+                $titulo_url = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $value['titulo']));
+              ?>
+                <div class="col-12 mb-4">
+                  <div class="post-entry">
+                    <div class="image">
+                      <a href="noticia-unica.php?id=<?= $value['id'] ?>&title=<?= $titulo_url ?>">
+                        <img class="img-fluid" src="uploads/<?= $value['imagem'] ?>" alt="<?= $value['titulo'] ?>">
+                      </a>
                     </div>
-                  </a>
-                </li>
-                <li class="mb-3">
-                  <a href="#" class="d-flex">
-                    <figure class="image mr-4">
-                      <img src="images/img_1.jpg" alt="" class="img-fluid">
-                    </figure>
                     <div class="text">
-                      <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
+                      <h2 class="h5 text-black">
+                        <a href="noticia-unica.php?id=<?= $value['id'] ?>&title=<?= $titulo_url ?>"><?= $value['titulo'] ?></a>
+                      </h2>
+                      <span class="text-uppercase date d-block mb-3">
+                        <small>By <?= $value['autor'] ?> &bullet; <?= date('d/m/Y', strtotime($value['data_publicacao'])) ?></small>
+                      </span>
+                      <p class="mb-0"><?= $value['resumo'] ?></p>
                     </div>
-                  </a>
-                </li>
-                <li class="mb-3">
-                  <a href="#" class="d-flex">
-                    <figure class="image mr-4">
-                      <img src="images/img_1.jpg" alt="" class="img-fluid">
-                    </figure>
-                    <div class="text">
-                      <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-        <div class="col-lg-4 mb-5 mb-lg-0">
-          <div class="row mb-5">
-            <div class="col-md-12">
-              <h3 class="footer-heading mb-4">Quick Menu</h3>
-            </div>
-            <div class="col-md-6 col-lg-6">
-              <ul class="list-unstyled">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Matches</a></li>
-                <li><a href="#">News</a></li>
-                <li><a href="#">Team</a></li>
-              </ul>
-            </div>
-            <div class="col-md-6 col-lg-6">
-              <ul class="list-unstyled">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Membership</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <h3 class="footer-heading mb-4">Follow Us</h3>
-
-              <div>
-                <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-lg-4 mb-5 mb-lg-0">
-          <div class="mb-5">
-            <h3 class="footer-heading mb-4">Watch Video</h3>
-
-            <div class="block-16">
-              <figure>
-                <img src="images/img_1.jpg" alt="Image placeholder" class="img-fluid rounded">
-                <a href="https://vimeo.com/channels/staffpicks/93951774" class="play-button popup-vimeo"><span class="icon-play"></span></a>
-              </figure>
-            </div>
-
-          </div>
-
-          <div class="mb-5">
-            <h3 class="footer-heading mb-2">Subscribe Newsletter</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit minima minus odio.</p>
-
-            <form action="#" method="post">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" id="button-addon2">Send</button>
+                  </div>
                 </div>
-              </div>
-            </form>
-
+              <?php } ?>
+            </div>
           </div>
-
-        </div>
-
-      </div>
-      <div class="row pt-5 mt-5 text-center">
-        <div class="col-md-12">
-          <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-            <script>
-              document.write(new Date().getFullYear());
-            </script> All rights reserved | This template is made with <i class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          </p>
         </div>
 
       </div>
     </div>
-  </footer>
+
+    <?php include 'include/rodape.inc.php'; ?>
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -239,9 +150,23 @@ include 'include/config.inc.php';
   <script src="js/jquery.countdown.min.js"></script>
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/aos.js"></script>
-
   <script src="js/main.js"></script>
 
+  <script>
+    document.getElementById('grid-view-btn').addEventListener('click', function() {
+      document.getElementById('grid-view').classList.remove('hidden');
+      document.getElementById('list-view').classList.add('hidden');
+      this.classList.add('active');
+      document.getElementById('list-view-btn').classList.remove('active');
+    });
+
+    document.getElementById('list-view-btn').addEventListener('click', function() {
+      document.getElementById('grid-view').classList.add('hidden');
+      document.getElementById('list-view').classList.remove('hidden');
+      this.classList.add('active');
+      document.getElementById('grid-view-btn').classList.remove('active');
+    });
+  </script>
 </body>
 
 </html>

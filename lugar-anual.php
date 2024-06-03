@@ -60,6 +60,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 }
+
+// Obter bancadas
+$sql_bancadas = "SELECT * FROM bancadas";
+$result_bancadas = my_query($sql_bancadas);
+
+$bancadas_agrupadas = [];
+foreach ($result_bancadas as $bancada) {
+  $nome_parts = explode(' ', $bancada['nomeBancada']);
+  $primeira_parte = $nome_parts[0];
+  if (!isset($bancadas_agrupadas[$primeira_parte])) {
+    $bancadas_agrupadas[$primeira_parte] = [
+      'nomes_completos' => [],
+      'preco' => $bancada['precoBancada']
+    ];
+  }
+  if (isset($nome_parts[1])) {
+    $bancadas_agrupadas[$primeira_parte]['nomes_completos'][] = $nome_parts[1];
+  }
+}
 ?>
 
 
@@ -165,6 +184,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
       </div>
     </div>
+    <div class="container text-center">
+      <div class="col-lg-8 mb-lg-0 mb-4 mx-auto">
+        <div class="card">
+          <div class="card-header pb-2 px-3 pt-3">
+            <h4 class="card-title mb-0">Bancadas - Lugar Anual</h4>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary font-weight-bolder opacity-7">Nome da Bancada</th>
+                    <th class="text-uppercase text-secondary font-weight-bolder opacity-7">Preço da Bancada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  if (!empty($bancadas_agrupadas)) {
+                    foreach ($bancadas_agrupadas as $nomeBancada => $bancada) {
+                      $nomes_completos = implode(' / ', $bancada['nomes_completos']);
+                      echo "<tr><td>{$nomeBancada} {$nomes_completos}</td><td>{$bancada['preco']}€</td></tr>";
+                    }
+                  } else {
+                    echo "<tr><td colspan='2' class='text-center'>Nenhuma bancada encontrada</td></tr>";
+                  }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+
+    </style>
 
     <?php include 'include/rodape.inc.php'; ?>
   </div>
