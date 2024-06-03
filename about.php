@@ -1,3 +1,7 @@
+<?php
+include 'include/config.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,85 +28,42 @@
 
 <body>
 
-  <div class="site-wrap">
+<div class="site-wrap">
 
-    <div class="site-mobile-menu">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-logo">
-          <a href="#"><img src="images/logo.png" alt="Image"></a>
-        </div>
-        <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
+<div class="site-mobile-menu">
+  <div class="site-mobile-menu-header">
+    <div class="site-mobile-menu-logo">
+      <a href="#"><img src="img/logo.png" alt="Image"></a>
     </div>
+    <div class="site-mobile-menu-close mt-3">
+      <span class="icon-close2 js-menu-toggle"></span>
+    </div>
+  </div>
+  <div class="site-mobile-menu-body"></div>
+</div>
 
-    <header class="site-navbar absolute transparent" role="banner">
-      <div class="py-3">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-6 col-md-3">
-              <a href="#" class="text-secondary px-2 pl-0"><span class="icon-facebook"></span></a>
-              <a href="#" class="text-secondary px-2"><span class="icon-instagram"></span></a>
-              <a href="#" class="text-secondary px-2"><span class="icon-twitter"></span></a>
-              <a href="#" class="text-secondary px-2"><span class="icon-linkedin"></span></a>
-            </div>
-            <div class="col-6 col-md-9 text-right">
-              <div class="d-inline-block"><a href="#" class="text-secondary p-2 d-flex align-items-center"><span class="icon-envelope mr-3"></span> <span class="d-none d-md-block">youremail@domain.com</span></a></div>
-              <div class="d-inline-block"><a href="#" class="text-secondary p-2 d-flex align-items-center"><span class="icon-phone mr-0 mr-md-3"></span> <span class="d-none d-md-block">+1 232 3532 321</span></a></div>
-            </div>
-          </div>
-        </div>
+<header class="site-navbar absolute transparent" role="banner">
+  <nav class="site-navigation position-relative text-right bg-black text-md-right" role="navigation">
+    <div class="container position-relative">
+      <div class="site-logo">
+        <a href="index.php"><img src="img/logo.png" alt=""></a>
       </div>
-      <nav class="site-navigation position-relative text-right bg-black text-md-right" role="navigation">
-        <div class="container position-relative">
-          <div class="site-logo">
-            <a href="index.php"><img src="images/logo.png" alt=""></a>
-          </div>
+      <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
 
-          <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+      <?php
+      include 'include/menu.inc.php';
+      ?>
+    </div>
+  </nav>
+</header>
 
-          <ul class="site-menu js-clone-nav d-none d-md-block">
-            <li class="has-children">
-              <a href="index.php">Home</a>
-              <ul class="dropdown arrow-top">
-                <li><a href="#">Menu One</a></li>
-                <li><a href="#">Menu Two</a></li>
-                <li><a href="#">Menu Three</a></li>
-                <li class="has-children">
-                  <a href="#">Sub Menu</a>
-                  <ul class="dropdown">
-                    <li><a href="#">Menu One</a></li>
-                    <li><a href="#">Menu Two</a></li>
-                    <li><a href="#">Menu Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li class="has-children">
-              <a href="news">News</a>
-              <ul class="dropdown arrow-top">
-                <li><a href="#">Menu One</a></li>
-                <li><a href="#">Menu Two</a></li>
-                <li><a href="#">Menu Three</a></li>
-              </ul>
-            </li>
-            <li><a href="matches">Matches</a></li>
-            <li><a href="team">Team</a></li>
-            <li class="active"><a href="about">About</a></li>
-            <li><a href="contact">Contact</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
 
     <div class="site-blocks-cover overlay" style="background-image: url(images/hero_bg_3.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-start">
           <div class="col-md-6 text-center text-md-left" data-aos="fade-up" data-aos-delay="400">
-            <h1 class="bg-text-line">About Us</h1>
-            <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad maxime velit nostrum praesentium voluptatem. Mollitia perferendis dolore dolores.</p>
+            <h1 class="bg-text-line">Sobre Nós</h1>
+            <p class="mt-4">O AGFC é mais do que uma equipa de futebol; é uma comunidade apaixonada pelo desporto e pela excelência. Desde a sua fundação, o AGFC promove o futebol, cultiva talentos, incentiva a participação da comunidade e inspira futuras gerações de atletas.
           </div>
         </div>
       </div>
@@ -115,9 +76,9 @@
             <img src="images/about_1.jpg" alt="Image" class="img-fluid">
           </div>
           <div class="col-md-6 pl-md-5">
-            <h2 class="text-black">About Sportz</h2>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis inventore eius, doloremque fugiat id laudantium. Delectus quisquam voluptates deleniti incidunt, iusto magni mollitia rerum! Ex perspiciatis incidunt, laborum repellat illo.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo maxime eligendi sunt autem consequuntur minima, quidem iure, nisi laboriosam, nam nostrum saepe voluptatibus repellat quam reiciendis. Accusantium omnis facilis eligendi.</p>
+            <h2 class="text-black">Nossa História</h2>
+            <p class="lead">O AGFC foi fundado em 1947, por um grupo de entusiastas locais que partilhavam uma visão comum: criar um clube que fosse um pilar da comunidade. Ao longo dos anos, crescemos em tamanho e prestígio, alcançando diversos marcos importantes tanto a nível regional como nacional. A nossa história é marcada por dedicação, esforço e uma paixão imensurável pelo futebol, que se reflete em cada jogo que disputamos..</p>
+            
           </div>
         </div>
       </div>
@@ -130,10 +91,9 @@
             <img src="images/about_2.jpg" alt="Image" class="img-fluid">
           </div>
           <div class="col-md-6 pr-md-5">
-            <h2 class="text-black">Dedicated Team</h2>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis inventore eius, doloremque fugiat id laudantium. Delectus quisquam voluptates deleniti incidunt, iusto magni mollitia rerum! Ex perspiciatis incidunt, laborum repellat illo.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo maxime eligendi sunt autem consequuntur minima, quidem iure, nisi laboriosam, nam nostrum saepe voluptatibus repellat quam reiciendis. Accusantium omnis facilis eligendi.</p>
-          </div>
+            <h2 class="text-black">Missão e Valores</h2>
+            <p class="lead">A missão do AGFC é promover o futebol como uma ferramenta de inclusão, saúde e educação, valorizando o fair play, a disciplina e o espírito de equipa. Os nossos valores fundamentais incluem respeito, integridade e compromisso com a excelência. Acreditamos que através do desporto, podemos inspirar e capacitar os nossos jogadores a alcançarem o seu potencial máximo, dentro e fora do campo.</p>
+            
         </div>
       </div>
     </div>
@@ -149,34 +109,34 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 text-center">
-            <h2 class="text-black">Match Highlights</h2>
+            <h2 class="text-black">O que nos diferencia</h2>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6 col-lg-4" data-aos="fade" data-aos-delay="100">
             <div class="p-3 p-md-5 feature-block-1 mb-5 mb-lg-0 bg" style="background-image: url('images/img_1.jpg');">
               <div class="text">
-                <h2 class="h5 text-white">Russia's World Cup Championship</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos repellat autem illum nostrum sit distinctio!</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Read More</a></p>
+                <h2 class="h5 text-white">Formação de Jovens Talentos</h2>
+                <p>No AGFC, acreditamos no futuro do futebol e investimos na formação de jovens jogadores, oferecendo-lhes as ferramentas e o suporte necessários para crescerem no desporto e como indivíduos.</p>
+           
               </div>
             </div>
           </div>
           <div class="col-md-6 col-lg-4" data-aos="fade" data-aos-delay="200">
             <div class="p-3 p-md-5 feature-block-1 mb-5 mb-lg-0 bg" style="background-image: url('images/img_2.jpg');">
               <div class="text">
-                <h2 class="h5 text-white">Russia's World Cup Championship</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos repellat autem illum nostrum sit distinctio!</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Read More</a></p>
+                <h2 class="h5 text-white">Envolvimento Comunitário</h2>
+                <p>Estamos profundamente ligados à nossa comunidade, participando e organizando eventos locais que promovem o desporto e a solidariedade, criando um ambiente de apoio mútuo.</p>
+            
               </div>
             </div>
           </div>
           <div class="col-md-6 col-lg-4" data-aos="fade" data-aos-delay="300">
             <div class="p-3 p-md-5 feature-block-1 mb-5 mb-lg-0 bg" style="background-image: url('images/img_3.jpg');">
               <div class="text">
-                <h2 class="h5 text-white">Russia's World Cup Championship</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos repellat autem illum nostrum sit distinctio!</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Read More</a></p>
+                <h2 class="h5 text-white">Infraestruturas de Excelência</h2>
+                <p>O AGFC orgulha-se das suas instalações de primeira linha, que incluem campos de treino, um estádio moderno e equipamentos de última geração. Garantimos as melhores condições </p>
+              
               </div>
             </div>
           </div>
@@ -184,138 +144,9 @@
       </div>
     </div>
 
-    <footer class="site-footer border-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="mb-5">
-              <h3 class="footer-heading mb-4">About Sportz</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe pariatur reprehenderit vero atque, consequatur id ratione, et non dignissimos culpa? Ut veritatis, quos illum totam quis blanditiis, minima minus odio!</p>
-            </div>
+    
 
-            <div class="mb-5">
-              <h3 class="footer-heading mb-4">Recent Blog</h3>
-              <div class="block-25">
-                <ul class="list-unstyled">
-                  <li class="mb-3">
-                    <a href="#" class="d-flex">
-                      <figure class="image mr-4">
-                        <img src="images/img_1.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a href="#" class="d-flex">
-                      <figure class="image mr-4">
-                        <img src="images/img_1.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a href="#" class="d-flex">
-                      <figure class="image mr-4">
-                        <img src="images/img_1.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-lg-4 mb-5 mb-lg-0">
-            <div class="row mb-5">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Quick Menu</h3>
-              </div>
-              <div class="col-md-6 col-lg-6">
-                <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Matches</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Team</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-6">
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="#">Membership</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Follow Us</h3>
-
-                <div>
-                  <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-4 mb-5 mb-lg-0">
-            <div class="mb-5">
-              <h3 class="footer-heading mb-4">Watch Video</h3>
-
-              <div class="block-16">
-                <figure>
-                  <img src="images/img_1.jpg" alt="Image placeholder" class="img-fluid rounded">
-                  <a href="https://vimeo.com/channels/staffpicks/93951774" class="play-button popup-vimeo"><span class="icon-play"></span></a>
-                </figure>
-              </div>
-
-            </div>
-
-            <div class="mb-5">
-              <h3 class="footer-heading mb-2">Subscribe Newsletter</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit minima minus odio.</p>
-
-              <form action="#" method="post">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" id="button-addon2">Send</button>
-                  </div>
-                </div>
-              </form>
-
-            </div>
-
-          </div>
-
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-              <script>
-                document.write(new Date().getFullYear());
-              </script> All rights reserved | This template is made with <i class="icon-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </footer>
+    <?php include 'include/rodape.inc.php'; ?>
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
