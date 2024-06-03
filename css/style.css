@@ -1295,3 +1295,53 @@ a:hover {
   color: #fff;
   border: 1px solid transparent;
 }
+
+.advantage-box {
+  border: 6px solid white;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  margin: 20px 0;
+  position: relative;
+  text-align: center;
+  height: 368px;
+}
+
+.advantage-box img {
+  margin-right: 80px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.icon-image {
+  width: 220px;
+  height: auto;
+}
+
+.site-blocks-cover h1 {
+  color: white;
+}
+
+.text-black {
+  color: black !important;
+}
+
+.container .row.mb-5 {
+  margin-bottom: 5rem !important;
+}
+
+.line-above {
+  width: 90px;
+  height: 2px;
+  background-color: white;
+  margin: 10px auto;
+}
+
+
+

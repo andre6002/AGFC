@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </nav>
     </header>
 
-    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 650px" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-start">
           <div class="col-md-6 text-center text-md-left" data-aos="fade-up" data-aos-delay="400">
@@ -119,23 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="site-section bg-light" data-aos="fade-up" id="verificacao">
       <div class="container">
         <div class="row align-items-first">
-          <!-- <div class="col-md-7">
-            <h2 class="text-black mb-3 heading">Insira os seus dados</h2>
-            <form action="lugar-anual.php" method="post" class="bg-white p-5">
-              <div class="form-group">
-                <label for="codSocio" class="text-black">Número de Sócio</label>
-                <input type="text" class="form-control" id="codSocio" name="codSocio" required>
-              </div>
-              <div class="form-group">
-                <label for="CC" class="text-black">Cartão de Cidadão</label>
-                <input type="text" class="form-control" id="CC" name="CC" required>
-              </div>
-              <button type="submit" class="btn btn-primary btn-lg btn-block" name="verify">Verificar</button>
-            </form>
-            <div class="mt-4">
-              <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado) echo '<div class="alert alert-info">' . $resultado . '</div>'; ?>
-            </div>
-          </div> -->
 
           <?php if ($showSelection) : ?>
             <div class="col-md-12">

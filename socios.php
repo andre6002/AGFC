@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </nav>
     </header>
 
-    <div class="site-blocks-cover overlay align-middle" style="background-image: url(img/bg-stadium.webp); height: 650px" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay align-middle" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-6 text-center">
