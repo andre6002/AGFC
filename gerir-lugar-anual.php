@@ -1,6 +1,5 @@
 <?php
 include 'include/config.inc.php';
-include $arrConfig['dir_site'] . '/include/auth.inc.php';
 
 $resultado = '';
 $showActions = false;
@@ -174,7 +173,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </nav>
     </header>
 
-    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px"
+      data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-start">
           <div class="col-md-6 text-center text-md-left" data-aos="fade-up" data-aos-delay="400">
@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2 class="text-black mb-3 heading">Insira os seus dados</h2>
         <div class="row align-items-first">
 
-          <?php if ($showActions === true) : ?>
+          <?php if ($showActions === true): ?>
             <div class="col-md-5">
               <div class="p-4 border mb-3 bg-white">
                 <button class="btn btn-primary btn-block mb-3" onclick="mostrarFormPartilhar()">Partilhar</button>
@@ -229,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <button type="submit" class="btn btn-primary btn-lg btn-block" name="swap">Confirmar Troca</button>
               </form>
             </div>
-          <?php else : ?>
+          <?php else: ?>
             <div class="col-md-7">
               <form action="gerir-lugar-anual.php" method="post" class="bg-white p-5">
                 <div class="form-group">
@@ -243,7 +243,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <button type="submit" class="btn btn-primary btn-lg btn-block" name="verify">Verificar</button>
               </form>
               <div class="mt-4">
-                <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado) echo '<div class="alert alert-info">' . $resultado . '</div>'; ?>
+                <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado)
+                  echo '<div class="alert alert-info">' . $resultado . '</div>'; ?>
               </div>
             </div>
 
@@ -267,8 +268,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="js/aos.js"></script>
   <script src="js/main.js"></script>
   <script>
-    $(document).ready(function() {
-      $('#verMaisBtn').on('click', function(event) {
+    $(document).ready(function () {
+      $('#verMaisBtn').on('click', function (event) {
         event.preventDefault();
         $('html, body').animate({
           scrollTop: $('#verificacao').offset().top

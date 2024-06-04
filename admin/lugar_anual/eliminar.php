@@ -37,6 +37,11 @@ $resultPartilha = my_query($queryDeletePartilha);
 if (!$arrConfig['production'] && !$resultPartilha)
   die("ERRO: " . $queryDeletePartilha);
 
+$queryDeleteTroca = "DELETE FROM trocas WHERE codLugar1 = '$codLugarAnual' OR codLugar2 = '$codLugarAnual'";
+$resultTroca = my_query($queryDeleteTroca);
+if (!$arrConfig['production'] && !$resultTroca)
+  die("ERRO: " . $queryDeleteTroca);
+
 // Remover o codSocio2 da tabela lugar_anual
 $queryUpdateLugarAnual = "UPDATE lugar_anual SET codSocio2 = NULL WHERE codLugarAnual = '$codLugarAnual'";
 $resultUpdateLugarAnual = my_query($queryUpdateLugarAnual);
