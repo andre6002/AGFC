@@ -9,6 +9,8 @@ include 'include/config.inc.php';
   <title>AGFC &mdash; Gestão de Sócios</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="icon" type="image/png" href="img/logo.png">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -48,7 +50,8 @@ include 'include/config.inc.php';
           <div class="site-logo">
             <a href="index.php"><img src="img/logo.png" alt=""></a>
           </div>
-          <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+          <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3"><a href="#"
+              class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
 
           <?php
           include 'include/menu.inc.php';
@@ -59,7 +62,8 @@ include 'include/config.inc.php';
 
 
 
-    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px"
+      data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-start justify-content-start" style="padding-top: 170px;">
           <div class="col-md-6 text-center text-md-left mb-12 mb-md-0" data-aos="fade-up" data-aos-delay="400">
@@ -82,16 +86,19 @@ include 'include/config.inc.php';
               <div class="text">
                 <h2 class="h5 text-white">Inscrever um sócio</h2>
                 <p>Torne-se já sócio do nosso clube e beneficie de vantagens exclusivas. Junte-se a nós!</p>
-                <p class="mb-0"><a href="socios.php" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Inscrever</a></p>
+                <p class="mb-0"><a href="socios.php" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Inscrever</a>
+                </p>
               </div>
             </div>
           </div>
           <div class="col-md-6 col-lg-4">
-            <div class="p-3 p-md-5 feature-block-1 mb-5 mb-lg-0 bg" style="background-image: url('img/lugar-anual.jpg');">
+            <div class="p-3 p-md-5 feature-block-1 mb-5 mb-lg-0 bg"
+              style="background-image: url('img/lugar-anual.jpg');">
               <div class="text">
                 <h2 class="h5 text-white">Lugar Anual</h2>
                 <p>Adquira um lugar anual e garanta um lugar reservado no estádio, com o melhor custo-beneficio.</p>
-                <p class="mb-0"><a href="lugar-anual.php" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Adquirir</a></p>
+                <p class="mb-0"><a href="lugar-anual.php"
+                    class="btn btn-primary btn-sm px-4 py-2 rounded-0">Adquirir</a></p>
               </div>
             </div>
           </div>
@@ -99,8 +106,10 @@ include 'include/config.inc.php';
             <div class="p-3 p-md-5 feature-block-1 mb-5 mb-lg-0 bg" style="background-image: url('img/vantagens.jpg');">
               <div class="text">
                 <h2 class="h5 text-white">Vantangens</h2>
-                <p>Veja todas as vantagens que obtém ao tornar-se sócio. Desfrute de descontos exclusivos e muito mais.</p>
-                <p class="mb-0"><a href="vantagens.php" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Ver Mais</a></p>
+                <p>Veja todas as vantagens que obtém ao tornar-se sócio. Desfrute de descontos exclusivos e muito mais.
+                </p>
+                <p class="mb-0"><a href="vantagens.php" class="btn btn-primary btn-sm px-4 py-2 rounded-0">Ver Mais</a>
+                </p>
               </div>
             </div>
           </div>
@@ -114,8 +123,11 @@ include 'include/config.inc.php';
           <div class="row align-items-center">
             <div class="col-md-6 order-2 order-md-1">
               <h2 class="text-black">Como Funciona?</h2>
-              <p class="lead">O nosso sistema de gestão de sócios de um clube desportivo apresenta planos de associação para várias idades, a opção de aquisição de um lugar anual*, bem como algumas vantagens ao aderir a estes planos.
-                Ao clicar para inscrever/registar um sócio irá aparecer um formulário a pedir os dados necessários para a adesão.</p>
+              <p class="lead">O nosso sistema de gestão de sócios de um clube desportivo apresenta planos de associação
+                para várias idades, a opção de aquisição de um lugar anual*, bem como algumas vantagens ao aderir a
+                estes planos.
+                Ao clicar para inscrever/registar um sócio irá aparecer um formulário a pedir os dados necessários para
+                a adesão.</p>
               <p class="lead" style="color: gray">*apenas disponível no caso de já ser sócio</p>
             </div>
             <div class="col-md-6 order-1 order-md-2">
@@ -140,20 +152,23 @@ include 'include/config.inc.php';
           <?php foreach ($news as $key => $value) {
             // Gerar URL amigável para SEO
             $titulo_url = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $value['titulo']));
-          ?>
+            ?>
             <div class="col-md-6 col-lg-4 mb-4">
               <div class="post-entry" style="height: 500px; border-radius: 10px">
                 <div class="image">
                   <a href="noticia-unica.php?id=<?= $value['id'] ?>&title=<?= $titulo_url ?>">
-                    <img class="img-fluid" src="uploads/<?= $value['imagem'] ?>" alt="<?= $value['titulo'] ?>" style="border-radius: 10px 10px 0 0;">
+                    <img class="img-fluid" src="uploads/<?= $value['imagem'] ?>" alt="<?= $value['titulo'] ?>"
+                      style="border-radius: 10px 10px 0 0;">
                   </a>
                 </div>
                 <div class="text p-4">
                   <h2 class="h5 text-black">
-                    <a href="noticia-unica.php?id=<?= $value['id'] ?>&title=<?= $titulo_url ?>"><?= $value['titulo'] ?></a>
+                    <a
+                      href="noticia-unica.php?id=<?= $value['id'] ?>&title=<?= $titulo_url ?>"><?= $value['titulo'] ?></a>
                   </h2>
                   <span class="text-uppercase date d-block mb-3">
-                    <small>By <?= $value['autor'] ?> &bullet; <?= date('d/m/Y', strtotime($value['data_publicacao'])) ?></small>
+                    <small>By <?= $value['autor'] ?> &bullet;
+                      <?= date('d/m/Y', strtotime($value['data_publicacao'])) ?></small>
                   </span>
                   <p class="mb-0"><?= $value['resumo'] ?></p>
                 </div>

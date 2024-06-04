@@ -9,10 +9,12 @@ include 'include/config.inc.php';
   <title>AGFC &mdash; Gestão de Sócios</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="img/logo.png">
   <!-- fontawesome -->
   <link rel="stylesheet" href="assets/css/all.min.css">
   <!-- Font Awesome Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css"
+    rel="stylesheet">
   <script src="https://kit.fontawesome.com/4454d5d378.js" crossorigin="anonymous"></script>
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
@@ -50,7 +52,8 @@ include 'include/config.inc.php';
     </header>
 
 
-    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px"
+      data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-start">
           <div class="col-md-6 text-center text-md-left" data-aos="fade-up" data-aos-delay="400">
@@ -97,7 +100,8 @@ include 'include/config.inc.php';
 
     </style>
 
-    <div class="site-section" style="background-image: url('img/vantagens-bg.webp'); background-size: cover; background-position: center;">
+    <div class="site-section"
+      style="background-image: url('img/vantagens-bg.webp'); background-size: cover; background-position: center;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 text-center">
@@ -122,7 +126,8 @@ include 'include/config.inc.php';
         </div>
         <div class="row mt-5">
           <div class="col-md-12 text-center">
-            <p>Ao ser sócio, a opção de adquirir um lugar anual estará disponível. Caso pretenda, posteriormente poderá partilhar o lugar, trocar de lugar ou até mesmo vender o lugar.</p>
+            <p>Ao ser sócio, a opção de adquirir um lugar anual estará disponível. Caso pretenda, posteriormente poderá
+              partilhar o lugar, trocar de lugar ou até mesmo vender o lugar.</p>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ include 'include/config.inc.php';
 	<title>AGFC &mdash; Gestão de Sócios</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/png" href="img/logo.png">
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
 	<link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -45,7 +46,8 @@ include 'include/config.inc.php';
 		</header>
 
 
-		<div class="site-blocks-cover overlay mb-5" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
+		<div class="site-blocks-cover overlay mb-5" style="background-image: url(img/bg-stadium.webp); height: 600px"
+			data-aos="fade" data-stellar-background-ratio="0.5">
 			<div class="container">
 				<div class="row align-items-center justify-content-start">
 					<div class="col-md-6 text-center text-md-left" data-aos="fade-up" data-aos-delay="400">
@@ -64,7 +66,7 @@ include 'include/config.inc.php';
 			<div class="row">
 				<?php
 				foreach ($news as $key => $value) {
-				?>
+					?>
 					<div class="col-lg-8">
 						<div class="single-article-section">
 							<div class="single-article-text">
@@ -86,7 +88,7 @@ include 'include/config.inc.php';
 							</div>
 						</div>
 					</div>
-				<?php
+					<?php
 				}
 				?>
 			</div>

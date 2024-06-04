@@ -89,6 +89,7 @@ foreach ($result_bancadas as $bancada) {
   <title>AGFC &mdash; Aquisição de Lugar Anual</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="img/logo.png">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
   <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -124,7 +125,8 @@ foreach ($result_bancadas as $bancada) {
       </nav>
     </header>
 
-    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(img/bg-stadium.webp); height: 600px"
+      data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-start">
           <div class="col-md-6 text-center text-md-left" data-aos="fade-up" data-aos-delay="400">
@@ -139,7 +141,7 @@ foreach ($result_bancadas as $bancada) {
       <div class="container">
         <div class="row align-items-first">
 
-          <?php if ($showSelection) : ?>
+          <?php if ($showSelection): ?>
             <div class="col-md-12">
               <form action="lugar-anual.php" method="post" class="bg-white p-5">
                 <input type="hidden" name="codSocio" value="<?php echo htmlspecialchars($codSocio); ?>">
@@ -162,7 +164,7 @@ foreach ($result_bancadas as $bancada) {
                 <button type="submit" class="btn btn-primary btn-lg btn-block" name="adquirir">Adquirir Lugar</button>
               </form>
             </div>
-          <?php elseif ($showSelection === false) :  ?>
+          <?php elseif ($showSelection === false): ?>
             <div class="col-md-7">
               <h2 class="text-black mb-3 heading">Insira os seus dados</h2>
               <form action="lugar-anual.php" method="post" class="bg-white p-5">
@@ -177,7 +179,8 @@ foreach ($result_bancadas as $bancada) {
                 <button type="submit" class="btn btn-primary btn-lg btn-block" name="verify">Verificar</button>
               </form>
               <div class="mt-4">
-                <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado) echo '<div class="alert alert-info">' . $resultado . '</div>'; ?>
+                <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && $resultado)
+                  echo '<div class="alert alert-info">' . $resultado . '</div>'; ?>
               </div>
             </div>
           <?php endif; ?>
@@ -237,15 +240,15 @@ foreach ($result_bancadas as $bancada) {
   <script src="js/aos.js"></script>
   <script src="js/main.js"></script>
   <script>
-    $(document).ready(function() {
-      $('#verMaisBtn').on('click', function(event) {
+    $(document).ready(function () {
+      $('#verMaisBtn').on('click', function (event) {
         event.preventDefault();
         $('html, body').animate({
           scrollTop: $('#verificacao').offset().top
         }, 1000);
       });
 
-      $('#codBancada').change(function() {
+      $('#codBancada').change(function () {
         var codBancada = $(this).val();
         $.ajax({
           url: 'include/get_lugares.php',
@@ -253,9 +256,9 @@ foreach ($result_bancadas as $bancada) {
           data: {
             codBancada: codBancada
           },
-          success: function(data) {
+          success: function (data) {
             $('#lugaresContainer').html(data);
-            $('.lugar input').change(function() {
+            $('.lugar input').change(function () {
               var [fila, lugar] = $(this).val().split('-');
               $('input[name="fila"]').val(fila);
               $('input[name="numeroDoLugar"]').val(lugar);
